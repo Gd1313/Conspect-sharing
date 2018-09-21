@@ -5,7 +5,6 @@ C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\Conspect-sharing.dl
 C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\Conspect-sharing.pdb
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csprojAssemblyReference.cache
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csproj.CoreCompileInputs.cache
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.AssemblyInfoInputs.cache
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.AssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dll
