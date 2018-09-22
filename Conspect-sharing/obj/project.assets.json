@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "AspNet.Security.OAuth.VK/0.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.OAuth": "2.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/AspNet.Security.OAuth.VK.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/AspNet.Security.OAuth.VK.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -4972,6 +4984,16 @@
     }
   },
   "libraries": {
+    "AspNet.Security.OAuth.VK/0.0.1": {
+      "sha512": "Jj1ZqAhWLTv+G4+SWCdMSwirwekE10LZbWocesHVaWxiOGPkFThtvG2CI47hOsJf/RLXTW3F2hf7gIGO1X9wag==",
+      "type": "package",
+      "path": "aspnet.security.oauth.vk/0.0.1",
+      "files": [
+        "aspnet.security.oauth.vk.0.0.1.nupkg.sha512",
+        "aspnet.security.oauth.vk.nuspec",
+        "lib/netcoreapp2.0/AspNet.Security.OAuth.VK.dll"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -13138,6 +13160,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AspNet.Security.OAuth.VK >= 0.0.1",
       "Microsoft.AspNetCore.All >= 2.0.8",
       "Microsoft.AspNetCore.Authentication.Facebook >= 2.1.2",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.3",
@@ -13186,6 +13209,10 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "AspNet.Security.OAuth.VK": {
+            "target": "Package",
+            "version": "[0.0.1, )"
+          },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "[2.0.8, )"

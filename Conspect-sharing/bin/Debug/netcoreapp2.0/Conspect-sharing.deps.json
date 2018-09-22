@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "54b66ef44b2ed41ea8775124f744dd52a880093d"
+    "signature": "389920ede034c1772b07ce2d36bdf6452ba87c47"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
     ".NETCoreApp,Version=v2.0": {
       "Conspect-sharing/1.0.0": {
         "dependencies": {
+          "AspNet.Security.OAuth.VK": "0.0.1",
           "Microsoft.AspNetCore.All": "2.0.8",
           "Microsoft.AspNetCore.Authentication.Facebook": "2.1.2",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
@@ -34,6 +35,17 @@
         },
         "compile": {
           "Conspect-sharing.dll": {}
+        }
+      },
+      "AspNet.Security.OAuth.VK/0.0.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.OAuth": "2.1.2"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/AspNet.Security.OAuth.VK.dll": {}
+        },
+        "compile": {
+          "lib/netcoreapp2.0/AspNet.Security.OAuth.VK.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -4206,6 +4218,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNet.Security.OAuth.VK/0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Jj1ZqAhWLTv+G4+SWCdMSwirwekE10LZbWocesHVaWxiOGPkFThtvG2CI47hOsJf/RLXTW3F2hf7gIGO1X9wag==",
+      "path": "aspnet.security.oauth.vk/0.0.1",
+      "hashPath": "aspnet.security.oauth.vk.0.0.1.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

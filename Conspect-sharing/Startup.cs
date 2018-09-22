@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Conspect_sharing.Data;
 using Conspect_sharing.Models;
 using Conspect_sharing.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Conspect_sharing
 {
@@ -36,10 +38,26 @@ namespace Conspect_sharing
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            }).AddVK(options =>
+            {
+                options.ClientId = Configuration["Authentication:VK:AppId"];
+                options.ClientSecret = Configuration["Authentication:VK:AppSecret"];
+
+                options.Scope.Add("email");
+
+                options.Fields.Add("id");
+                options.Fields.Add("first_name");
+                options.Fields.Add("last_name");
+
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
 
             services.AddMvc();
