@@ -36,6 +36,12 @@ namespace Conspect_sharing
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddMvc();
         }
 
