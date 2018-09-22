@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using MailKit.Security;
 
 namespace Conspect_sharing.Services
 {
@@ -27,7 +28,7 @@ namespace Conspect_sharing.Services
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.gmail.com", 25, false);
+                await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
                 await client.AuthenticateAsync("iluxadcp1@gmail.com", "tram4vai");
                 await client.SendAsync(emailMessage);
 

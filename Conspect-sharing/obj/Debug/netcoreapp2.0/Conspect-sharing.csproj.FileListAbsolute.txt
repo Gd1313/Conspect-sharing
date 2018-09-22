@@ -9,3 +9,4 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.As
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.AssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dll
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
