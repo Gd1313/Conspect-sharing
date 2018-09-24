@@ -47,6 +47,9 @@ namespace Conspect_sharing.Controllers
         public string StatusMessage { get; set; }
 
         [HttpGet]
+        
+        
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -61,7 +64,8 @@ namespace Conspect_sharing.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                Role = await  _userManager.IsInRoleAsync(user,"Admin")
             };
 
             return View(model);
@@ -489,6 +493,113 @@ namespace Conspect_sharing.Controllers
             var model = new ShowRecoveryCodesViewModel { RecoveryCodes = recoveryCodes.ToArray() };
 
             return View(nameof(ShowRecoveryCodes), model);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminTable()
+        {
+            IQueryable UsersFromDB = _userManager.Users;
+            List<AdminTable> Users = new List<AdminTable>();
+            foreach (ApplicationUser item in UsersFromDB)
+            {
+                Users.Add(new Models.AdminTable()
+                {
+                    UserName = item.UserName,
+                    Status = item.LockoutEnabled,
+                    Role = await GetRole(item) 
+                });
+
+            }
+            return View(Users);
+        }
+        private async Task<string> GetRole(ApplicationUser user)
+        {
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                return "Admin";
+            }
+            if (await _userManager.IsInRoleAsync(user, "User"))
+            {
+                return "User";
+            }
+            return "";
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> DeleteUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByEmailAsync(id);
+                if (user.Email == User.Identity.Name)
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                await _userManager.DeleteAsync(user);
+            }
+            return true;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> ChangeRole(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByEmailAsync(id);
+                if (user.Email == User.Identity.Name)
+                {
+                    //await _signInManager.SignOutAsync();
+                }
+                if (await GetRole(user)=="Admin")
+                {
+                    await _userManager.RemoveFromRoleAsync(user, "Admin");
+                    await _userManager.AddToRoleAsync(user, "User");
+                }else
+                if (await GetRole(user) == "User")
+                {
+                    await _userManager.RemoveFromRoleAsync(user, "User");
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            return true;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> LockUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByEmailAsync(id);
+                user.LockoutEnabled = false;
+                if (user.Email == User.Identity.Name)
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            return true;
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> UnLockUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByEmailAsync(id);
+                user.LockoutEnabled = true;
+                if (user.Email == User.Identity.Name)
+                {
+                    // await _signInManager.SignOutAsync();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            return true;
         }
 
         #region Helpers

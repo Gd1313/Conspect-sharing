@@ -1,0 +1,198 @@
+﻿@model IEnumerable<Conspect_sharing.Models.AdminTable>
+@{
+    ViewData["Title"] = "AdminTable";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Users Table</title>
+
+    <style>
+        #form {
+            width: 490px;
+            height: 0px;
+            position: absolute;
+            top: 15%;
+            left: 22px;
+            margin: auto;
+            background: #fff;
+        }
+
+        .d {
+            border: 1px solid black;
+            border-radius: 10%;
+            padding: 10px;
+            color: #9d9d9d;
+            background: #333;
+            font-weight: 800;
+        }
+
+        #blackout:target {
+            display: block;
+        }
+
+        .close {
+            margin-left: 50px;
+            margin-top: 5px;
+        }
+        }
+    </style>
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+
+            <tr>
+
+                <th><input type="checkbox" id="select_all"></th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <div class="navbar-collapse collapse">
+            <div id="blackout">
+                <div id="form">
+                    <p></p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-light" style="background-color: #5b6073;" width="">
+            <button type="button" class="btn btn-warning" onclick="Locking()" title="Lock user">Lock user</button>
+            <button type="button" class="btn btn-danger" onclick="Delete()" title="Delete user">Delete user</button>
+            <button type="button" class="btn btn-success" onclick="Unlocking()" title="Unlock user">Unlock user</button>
+            <button type="button" class="btn btn-info" onclick="ChangeRole()" title="Change role">Change role</button>
+        </nav>
+        <tbody @foreach (var item in Model) {<tr>
+    <td>
+        <input class="checkbox" type="checkbox" name="statuses" value="@item.UserName">
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Role)
+    </td>
+    <td>
+        @if (item.Status == true)
+        {
+            <p>Active</p>
+        }
+        @if (item.Status == false)
+        {
+            <p>Blocked</p>
+        }
+    </td>
+
+
+
+</tr>
+    }
+    </tbody>
+
+    </table>
+    @*Scripts*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" @*src="~/js/site.js"*@>
+        $('#select_all').click(function () {
+    var c = this.checked;
+    $(':checkbox').prop('checked', c);
+});
+function Locking() {
+    $.ajax({
+        type: 'POST',
+        url: "@Url.Action("LockUser", "Manage")",
+        data: { arr: getCheckedCheckBoxes() },
+        success: function (data) {
+            if (data == true) {
+                location.reload();
+            }
+            else {
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+function ChangeRole() {
+    $.ajax({
+        type: 'POST',
+        url: "@Url.Action("ChangeRole", "Manage")",
+        data: { arr: getCheckedCheckBoxes() },
+        success: function (data) {
+            if (data == true) {
+                location.reload();
+            }
+            else {
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+function Unlocking() {
+    $.ajax({
+        type: 'POST',
+        url: "@Url.Action("UnLockUser", "Manage")",
+        data: { arr: getCheckedCheckBoxes() },
+        success: function (data) {
+            if (data == true) {
+                location.reload();
+            }
+            else {
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+function Delete() {
+    $.ajax({
+        type: 'POST',
+        url: "@Url.Action("DeleteUser", "Manage")",
+        data: { arr: getCheckedCheckBoxes() },
+        success: function (data) {
+            if (data == true) {
+                location.reload();
+            }
+            else {
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+function getCheckedCheckBoxes() {
+    var checkboxes = document.getElementsByClassName('checkbox');
+    var checkboxesChecked = [];
+    for (var index = 0; index < checkboxes.length; index++) {
+        if (checkboxes[index].checked) {
+            checkboxesChecked.push(checkboxes[index].value);
+        }
+    }
+    return checkboxesChecked;
+}
+    </script>
+</body>
+</html>
+
+

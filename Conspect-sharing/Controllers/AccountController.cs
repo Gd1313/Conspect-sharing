@@ -22,6 +22,7 @@ namespace Conspect_sharing.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
@@ -29,12 +30,13 @@ namespace Conspect_sharing.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         [TempData]
@@ -231,6 +233,7 @@ namespace Conspect_sharing.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -239,6 +242,7 @@ namespace Conspect_sharing.Controllers
                     "Account",
                     new { userId = user.Id, code = code },
                     protocol: HttpContext.Request.Scheme);
+                    await _userManager.AddToRoleAsync(user, "User");
                     EmailService emailService = new EmailService();
                     await emailService.SendEmailAsync(model.Email, "Confirm your account",
                         $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
@@ -450,6 +454,7 @@ namespace Conspect_sharing.Controllers
             return View();
         }
 
+        
         #region Helpers
 
         private void AddErrors(IdentityResult result)

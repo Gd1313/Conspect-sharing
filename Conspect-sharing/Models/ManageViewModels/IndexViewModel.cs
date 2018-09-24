@@ -12,6 +12,8 @@ namespace Conspect_sharing.Models.ManageViewModels
 
         public bool IsEmailConfirmed { get; set; }
 
+        public bool Role { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
