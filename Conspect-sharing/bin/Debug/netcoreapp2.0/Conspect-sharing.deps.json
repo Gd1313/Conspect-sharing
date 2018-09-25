@@ -34,6 +34,14 @@
         "runtime": {
           "Conspect-sharing.dll": {}
         },
+        "resources": {
+          "be/Conspect-sharing.resources.dll": {
+            "locale": "be"
+          },
+          "ru/Conspect-sharing.resources.dll": {
+            "locale": "ru"
+          }
+        },
         "compile": {
           "Conspect-sharing.dll": {}
         }
