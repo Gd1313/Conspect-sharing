@@ -10,11 +10,11 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dl
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Home.Index.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csproj.GenerateResource.cache
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
 C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\be\Conspect-sharing.resources.dll
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Home.Index.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Shared._Layout.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Shared._Layout.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\be\Conspect-sharing.resources.dll
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.Index.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.Index.ru.resources

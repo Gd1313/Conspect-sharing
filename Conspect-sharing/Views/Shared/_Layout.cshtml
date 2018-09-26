@@ -22,6 +22,11 @@
     </environment>
 </head>
 <body>
+    <div class="container body-content">
+        @await Html.PartialAsync("_SelectLanguagePartial")
+    </div>
+    @RenderBody()
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -35,18 +40,26 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <h1>@Localizer["Header"]</h1>
-                        <h3>@Localizer["Message"]</h3>
-                    </li>
+
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Темы оформления <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-theme="default" class="theme-link">Стандартная</a></li>
+                            <li><a href="#" data-theme="cosmo" class="theme-link">Математическая тема</a></li>
+                            <li><a href="#" data-theme="united" class="theme-link">Гуманитарная тема</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
         </div>
     </nav>
+    <h1>@Localizer["Header"]</h1>
+    <h3>@Localizer["Message"]</h3>
     <div class="container body-content">
         @RenderBody()
         <hr />

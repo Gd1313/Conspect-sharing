@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 namespace Conspect_sharing
 {
@@ -39,13 +40,39 @@ namespace Conspect_sharing
                 .AddDefaultTokenProviders();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddMvc().AddDataAnnotationsLocalization()
+                .AddViewLocalization();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                options.DefaultRequestCulture = new RequestCulture("ru-RU");
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("ru"),
+                    new CultureInfo("be")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
             });
+
+            services.AddTransient<IEmailSender, EmailSender>();
+
+            //services.Configure<RequestLocalizationOptions>(options =>
+            //{
+
+            //    var supportedCultures = new[]
+            //    {
+            //        new CultureInfo("ru"),
+            //        new CultureInfo("be")
+            //    };
+
+            //    options.DefaultRequestCulture = new RequestCulture("ru");
+            //    options.SupportedCultures = supportedCultures;
+            //    options.SupportedUICultures = supportedCultures;
+            //});
+
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
@@ -67,8 +94,8 @@ namespace Conspect_sharing
                 options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
+            //.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization()
             
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization(); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,17 +112,26 @@ namespace Conspect_sharing
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("ru"),
-                new CultureInfo("be")
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("ru"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
+            //var supportedCultures = new[]
+            //{
+            //    new CultureInfo("ru"),
+            //    new CultureInfo("be")
+            //};
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture("ru"),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
+
+            //var cultureInfo = new CultureInfo("en-US");
+
+            //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 
             app.UseStaticFiles();
 
