@@ -22,10 +22,10 @@
     </environment>
 </head>
 <body>
-    <div class="container body-content">
+    @*<div class="container body-content">
         @await Html.PartialAsync("_SelectLanguagePartial")
     </div>
-    @RenderBody()
+    @RenderBody()*@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -58,8 +58,8 @@
         </div>
         </div>
     </nav>
-    <h1>@Localizer["Header"]</h1>
-    <h3>@Localizer["Message"]</h3>
+    @*<h1>@Localizer["Header"]</h1>
+    <h3>@Localizer["Message"]</h3>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
