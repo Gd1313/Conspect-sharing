@@ -1,12 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <style>
+        #text_container{
+            height:800px;
+            width: 800px;
+        }
+    </style>
+</head>
 <div class="container body-content">
     @await Html.PartialAsync("_SelectLanguagePartial")
 </div>
 
-<h1>@Localizer["Header"]</h1>
-    <h3>@Localizer["Message"]</h3>
+@*<h1>@Localizer["Header"]</h1>
+    <h3>@Localizer["Message"]</h3>*@
+<div id="text_container">
+    <textarea id="editor"></textarea>
+</div>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+        simplemde.value("This text will appear in the editor");
+    </script>
+
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>

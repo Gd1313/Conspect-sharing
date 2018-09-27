@@ -461,7 +461,6 @@ namespace Conspect_sharing.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            //User.SelectedLanguage= Response.Cookies.;
             await _userManager.UpdateAsync(User);
 
             return LocalRedirect(returnUrl);
@@ -477,10 +476,6 @@ namespace Conspect_sharing.Controllers
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(User.SelectedLanguage)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
-
-            //User.SelectedLanguage= Response.Cookies.;
-
-           
         }
 
         #region Helpers
