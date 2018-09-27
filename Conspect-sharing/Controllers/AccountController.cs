@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Conspect_sharing.Models;
 using Conspect_sharing.Models.AccountViewModels;
 using Conspect_sharing.Services;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Conspect_sharing.Controllers
 {
@@ -74,6 +76,7 @@ namespace Conspect_sharing.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    SetLanguageAfterLogin(user);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -230,6 +233,7 @@ namespace Conspect_sharing.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.SelectedLanguage = "ru";
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -445,7 +449,40 @@ namespace Conspect_sharing.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> SetLanguage(string culture,string returnUrl)
+        {
+
+            ApplicationUser User = await _userManager.GetUserAsync(HttpContext.User); 
+            User.SelectedLanguage = culture;
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            //User.SelectedLanguage= Response.Cookies.;
+            await _userManager.UpdateAsync(User);
+
+            return LocalRedirect(returnUrl);
+        }
+
+        [HttpPost]
+        public void SetLanguageAfterLogin(ApplicationUser user)
+        {
+
+            ApplicationUser User = user;
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(User.SelectedLanguage)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            //User.SelectedLanguage= Response.Cookies.;
+
+           
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)

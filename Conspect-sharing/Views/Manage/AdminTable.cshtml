@@ -37,162 +37,165 @@
         }
         }
     </style>
+
 </head>
 <body>
-    <table class="table">
+    <nav class="navbar navbar-light" style="background-color: #5b6073;" width="">
+        <button type="button" class="btn btn-warning" onclick="Locking()" title="Lock user">Lock user</button>
+        <button type="button" class="btn btn-danger" onclick="Delete()" title="Delete user">Delete user</button>
+        <button type="button" class="btn btn-success" onclick="Unlocking()" title="Unlock user">Unlock user</button>
+        <button type="button" class="btn btn-info" onclick="ChangeRole()" title="Change role">Change role</button>
+    </nav>
+
+    <table id="myTable" class="display">
         <thead>
-            <tr>
+
 
             <tr>
-
-                <th><input type="checkbox" id="select_all"></th>
+                <th>Выбрать пользователя</th>
+                @*<th><input type="checkbox" id="select_all"></th>*@
 
                 <th>
-                    @Html.DisplayNameFor(model => model.UserName)
+                    @*@Html.DisplayNameFor(model => model.UserName)*@
+                    Пользователь
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Role)
+                    @*@Html.DisplayNameFor(model => model.Role)*@
+                    Роль
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @*@Html.DisplayNameFor(model => model.Status)*@
+                    Статус
                 </th>
 
-                <th></th>
             </tr>
         </thead>
-        <div class="navbar-collapse collapse">
-            <div id="blackout">
-                <div id="form">
-                    <p></p>
-
-
-                </div>
-            </div>
-        </div>
-
-        <nav class="navbar navbar-light" style="background-color: #5b6073;" width="">
-            <button type="button" class="btn btn-warning" onclick="Locking()" title="Lock user">Lock user</button>
-            <button type="button" class="btn btn-danger" onclick="Delete()" title="Delete user">Delete user</button>
-            <button type="button" class="btn btn-success" onclick="Unlocking()" title="Unlock user">Unlock user</button>
-            <button type="button" class="btn btn-info" onclick="ChangeRole()" title="Change role">Change role</button>
-        </nav>
-        <tbody @foreach (var item in Model) {<tr>
-    <td>
-        <input class="checkbox" type="checkbox" name="statuses" value="@item.UserName">
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Role)
-    </td>
-    <td>
-        @if (item.Status == true)
-        {
-            <p>Active</p>
-        }
-        @if (item.Status == false)
-        {
-            <p>Blocked</p>
-        }
-    </td>
-
-
-
-</tr>
-    }
-    </tbody>
-
+        @*<thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 1</th>
+                <th>Column 2</th>
+            </tr>
+        </thead>*@
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input class="checkbox" type="checkbox" name="statuses" value="@item.UserName">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <p>Active</p>
+                        }
+                        @if (item.Status == false)
+                        {
+                            <p>Blocked</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-    @*Scripts*@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" @*src="~/js/site.js"*@>
+    @section Scripts {
+        <script>
+        $('#myTable').DataTable();
+
         $('#select_all').click(function () {
-    var c = this.checked;
-    $(':checkbox').prop('checked', c);
-});
-function Locking() {
-    $.ajax({
+        var c = this.checked;
+        $(':checkbox').prop('checked', c);
+        });
+        function Locking() {
+        $.ajax({
         type: 'POST',
         url: "@Url.Action("LockUser", "Manage")",
         data: { arr: getCheckedCheckBoxes() },
         success: function (data) {
-            if (data == true) {
-                location.reload();
-            }
-            else {
-            }
+        if (data == true) {
+        location.reload();
+        }
+        else {
+        }
         },
         error: function () {
-            alert("Error");
+        alert("Error");
         }
-    });
-}
+        });
+        }
 
-function ChangeRole() {
-    $.ajax({
+        function ChangeRole() {
+        $.ajax({
         type: 'POST',
         url: "@Url.Action("ChangeRole", "Manage")",
         data: { arr: getCheckedCheckBoxes() },
         success: function (data) {
-            if (data == true) {
-                location.reload();
-            }
-            else {
-            }
+        if (data == true) {
+        location.reload();
+        }
+        else {
+        }
         },
         error: function () {
-            alert("Error");
+        alert("Error");
         }
-    });
-}
-function Unlocking() {
-    $.ajax({
+        });
+        }
+        function Unlocking() {
+        $.ajax({
         type: 'POST',
         url: "@Url.Action("UnLockUser", "Manage")",
         data: { arr: getCheckedCheckBoxes() },
         success: function (data) {
-            if (data == true) {
-                location.reload();
-            }
-            else {
-            }
+        if (data == true) {
+        location.reload();
+        }
+        else {
+        }
         },
         error: function () {
-            alert("Error");
+        alert("Error");
         }
-    });
-}
-function Delete() {
-    $.ajax({
+        });
+        }
+        function Delete() {
+        $.ajax({
         type: 'POST',
         url: "@Url.Action("DeleteUser", "Manage")",
         data: { arr: getCheckedCheckBoxes() },
         success: function (data) {
-            if (data == true) {
-                location.reload();
-            }
-            else {
-            }
+        if (data == true) {
+        location.reload();
+        }
+        else {
+        }
         },
         error: function () {
-            alert("Error");
+        alert("Error");
         }
-    });
-}
+        });
+        }
 
-function getCheckedCheckBoxes() {
-    var checkboxes = document.getElementsByClassName('checkbox');
-    var checkboxesChecked = [];
-    for (var index = 0; index < checkboxes.length; index++) {
+        function getCheckedCheckBoxes() {
+        var checkboxes = document.getElementsByClassName('checkbox');
+        var checkboxesChecked = [];
+        for (var index = 0; index < checkboxes.length; index++) {
         if (checkboxes[index].checked) {
-            checkboxesChecked.push(checkboxes[index].value);
+        checkboxesChecked.push(checkboxes[index].value);
         }
+        }
+        return checkboxesChecked;
+        }
+        </script>
     }
-    return checkboxesChecked;
-}
-    </script>
 </body>
 </html>
-
+@*@RenderSection("Scripts", required: false)*@
 
