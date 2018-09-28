@@ -2,11 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="~/css/simplemde.min.css">
     <style>
-        #text_container{
-            height:800px;
-            width: 800px;
+        body {
+            padding-top: 65px !important;
         }
     </style>
 </head>
@@ -16,12 +15,12 @@
 
 @*<h1>@Localizer["Header"]</h1>
     <h3>@Localizer["Message"]</h3>*@
-<div id="text_container">
+<div id="container-fluid">
     <textarea id="editor"></textarea>
 </div>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+        var simplemde = new SimpleMDE({ element: document.getElementById("editor"), toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "|", "link", "image", "|","preview","|","guide"]});
         simplemde.value("This text will appear in the editor");
     </script>
 
