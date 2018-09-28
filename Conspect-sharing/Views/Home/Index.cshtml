@@ -18,11 +18,35 @@
 <div id="container-fluid">
     <textarea id="editor"></textarea>
 </div>
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("editor"), toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "|", "link", "image", "|","preview","|","guide"]});
-        simplemde.value("This text will appear in the editor");
-    </script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.24.0/codemirror.js"></script>
+<script src="~/js/codemirror-4.inline-attachmen.js"></script>
+<script src="~/js/inline-attachment.js"></script>
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById("editor"), toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "|", "link", "image", "|", "preview", "|", "guide"] });
+
+    simplemde.value("This text will appear in the editor");
+
+    inlineattach.editors.codemirror4.attach(simplemde.codemirror, {
+        onFileUploadResponse: function (xhr) {
+            var result = JSON.parse(xhr.responseText),
+                filename = result[this.settings.jsonFieldName];
+
+            if (result && filename) {
+                var newValue;
+                if (typeof this.settings.urlText === 'function') {
+                    newValue = this.settings.urlText.call(this, filename, result);
+                } else {
+                    newValue = this.settings.urlText.replace(this.filenameTag, filename);
+                }
+                var text = this.editor.getValue().replace(this.lastValue, newValue);
+                this.editor.setValue(text);
+                this.settings.onFileUploaded.call(this, filename);
+            }
+            return false;
+        }
+    });
+</script>
 
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">
