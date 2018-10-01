@@ -48,3 +48,4 @@ if (supports_storage) {
         //$('#theme-dropdown').hide();
     }
 }
+
