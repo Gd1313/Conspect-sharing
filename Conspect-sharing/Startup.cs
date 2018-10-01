@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Options;
+using Conspect_sharing.Services.Repositories;
 
 namespace Conspect_sharing
 {
@@ -43,6 +44,8 @@ namespace Conspect_sharing
 
             services.AddMvc().AddDataAnnotationsLocalization()
                 .AddViewLocalization();
+
+            services.AddTransient<ArticleRepository>();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {

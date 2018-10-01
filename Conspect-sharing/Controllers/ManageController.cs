@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Conspect_sharing.Models;
 using Conspect_sharing.Models.ManageViewModels;
 using Conspect_sharing.Services;
+using Conspect_sharing.Models.ViewModels;
+using Conspect_sharing.Services.Repositories;
 
 namespace Conspect_sharing.Controllers
 {
@@ -25,6 +27,7 @@ namespace Conspect_sharing.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly ArticleRepository _articleRepository;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -34,6 +37,7 @@ namespace Conspect_sharing.Controllers
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
+          ArticleRepository articleRepository,
           UrlEncoder urlEncoder)
         {
             _userManager = userManager;
@@ -41,6 +45,7 @@ namespace Conspect_sharing.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            _articleRepository=articleRepository;
         }
 
         [TempData]
@@ -601,7 +606,31 @@ namespace Conspect_sharing.Controllers
             }
             return true;
         }
+        public IActionResult Article()
+        {
+            var model = new ArticleData();
+            return View(model);
+        }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateArticle(ArticleData article)
+        {
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            ArticleModel model = new ArticleModel()
+            {
+                Text = article.Text,
+                CreatedDate = DateTime.Now,
+                LastModifeDate = DateTime.Now,
+                Description = article.Description,
+                Specialty = article.Specialty,
+                Name = article.Name,
+                UserId = new Guid(currentUser.Id)
+                //Tags = CreateArticleTagList(article.Tags, article.Id)
+            };
+            _articleRepository.Create(model);
+            return RedirectToAction("Index","Home");
+        }
         #region Helpers
 
         private void AddErrors(IdentityResult result)
