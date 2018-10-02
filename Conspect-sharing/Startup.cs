@@ -47,6 +47,8 @@ namespace Conspect_sharing
 
             services.AddTransient<ArticleRepository>();
 
+            services.AddTransient<TagRepository>();
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]
@@ -61,21 +63,6 @@ namespace Conspect_sharing
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
-
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-
-            //    var supportedCultures = new[]
-            //    {
-            //        new CultureInfo("ru"),
-            //        new CultureInfo("be")
-            //    };
-
-            //    options.DefaultRequestCulture = new RequestCulture("ru");
-            //    options.SupportedCultures = supportedCultures;
-            //    options.SupportedUICultures = supportedCultures;
-            //});
-
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
@@ -97,7 +84,6 @@ namespace Conspect_sharing
                 options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
-            //.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization()
             
         }
 
@@ -117,24 +103,6 @@ namespace Conspect_sharing
 
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
-
-            //var supportedCultures = new[]
-            //{
-            //    new CultureInfo("ru"),
-            //    new CultureInfo("be")
-            //};
-            //app.UseRequestLocalization(new RequestLocalizationOptions
-            //{
-            //    DefaultRequestCulture = new RequestCulture("ru"),
-            //    SupportedCultures = supportedCultures,
-            //    SupportedUICultures = supportedCultures
-            //});
-
-            //var cultureInfo = new CultureInfo("en-US");
-
-            //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
 
             app.UseStaticFiles();
 

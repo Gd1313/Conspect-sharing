@@ -13,9 +13,9 @@ C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\ru\Conspect-sharing
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csproj.GenerateResource.cache
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
 C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\be\Conspect-sharing.resources.dll
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Shared._Layout.be.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Shared._Layout.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\be\Conspect-sharing.resources.dll
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.Index.be.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.Index.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csprojAssemblyReference.cache
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._Layout.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._Layout.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartical.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartical.ru.resources

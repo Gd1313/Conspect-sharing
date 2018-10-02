@@ -49,3 +49,22 @@ if (supports_storage) {
     }
 }
 
+function getDataFromForm() {
+    let data = {
+        data: simplemde.value(),
+        id: $('input[name=Id]').val(),
+        description: $('input[name=Description]').val(),
+        specialty: $('input[name=Specialty]').val(),
+        name: $('input[name=Name]').val(),
+        tags: $('input[name=Tags]').tagsinput('items')
+    };
+    console.log('heh');
+    return data;
+}
+
+$("#sibmit_button").click(function () {
+    let data = getDataFromForm();
+    sendRequest("/Manage/CreateArticle", data, function (href) {
+        window.location.href = href;
+    });
+});

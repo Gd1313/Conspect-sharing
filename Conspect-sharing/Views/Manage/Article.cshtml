@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="~/css/simplemde.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -29,16 +30,20 @@
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="width:700px">
                     <label asp-for="Text" class="control-label"></label>
                     <div id="container-fluid">
-                        <textarea id="editor" asp-for="Text" class="form-control"></textarea>
+                        <textarea id="editor" asp-for="Text"></textarea>
                         <span asp-validation-for="Text" class="text-danger"></span>
                     </div>
-
+                    <div class="form-group">
+                        <label asp-for="Tags" class="control-label"></label>
+                        <input asp-for="Tags" data-role="tagsinput" type="text" class="form-control" />
+                        <span asp-validation-for="Tags" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input id="sibmit_button" type="submit" value="Create" class="btn btn-default" />
                 </div>
             </form>
         </div>
@@ -47,37 +52,13 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-
+    <script src="~/js/bootstrap-tagsinput_min.js"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.24.0/codemirror.js"></script>
     <script src="~/js/codemirror-4.inline-attachmen.js"></script>
-    <script src="~/js/inline-attachment.js"></script>
-    <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("editor"), toolbar: ["bold", "italic", "heading", "|", "quote", "ordered-list", "|", "link", "image", "|", "preview", "|", "guide"] });
-
-        simplemde.value("This text will appear in the editor");
-
-        inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
-            onFileUploadResponse: function (xhr) {
-                var result = JSON.parse(xhr.responseText),
-                    filename = result[this.settings.jsonFieldName];
-                if (result !=null) {
-                    var newValue;
-                    newValue = this.settings.urlText.replace(this.filenameTag, JSON.parse(xhr.responseText).url);
-                    var text = this.editor.getValue().replace(this.lastValue, newValue);
-                    this.editor.setValue(text);
-                    this.settings.onFileUploaded.call(this, filename);
-                }
-                return false;
-            }
-        });
-
-
-
-    </script>
+    <script src="~/js/editor.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
-@*<div class="container body-content">
-        @await Html.PartialAsync("_SelectLanguagePartial")
-    </div>*@
+
 
 

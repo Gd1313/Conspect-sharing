@@ -28,6 +28,7 @@ namespace Conspect_sharing.Controllers
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
         private readonly ArticleRepository _articleRepository;
+        private readonly TagRepository _tagRepository;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -38,6 +39,7 @@ namespace Conspect_sharing.Controllers
           IEmailSender emailSender,
           ILogger<ManageController> logger,
           ArticleRepository articleRepository,
+          TagRepository tagRepository,
           UrlEncoder urlEncoder)
         {
             _userManager = userManager;
@@ -46,6 +48,7 @@ namespace Conspect_sharing.Controllers
             _logger = logger;
             _urlEncoder = urlEncoder;
             _articleRepository=articleRepository;
+            _tagRepository = tagRepository;
         }
 
         [TempData]
@@ -179,6 +182,7 @@ namespace Conspect_sharing.Controllers
                 AddErrors(changePasswordResult);
                 return View(model);
             }
+           
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
@@ -625,12 +629,33 @@ namespace Conspect_sharing.Controllers
                 Description = article.Description,
                 Specialty = article.Specialty,
                 Name = article.Name,
-                UserId = new Guid(currentUser.Id)
-                //Tags = CreateArticleTagList(article.Tags, article.Id)
+                UserId = new Guid(currentUser.Id),
+                Tags = CreateArticleTagList(article.Tags, article.Id)
             };
             _articleRepository.Create(model);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
+
+        [NonAction]
+        private List<ArticleTagModel> CreateArticleTagList(List<string> tags, Guid articleId)
+        {
+            List<ArticleTagModel> articleTagList = new List<ArticleTagModel>();
+            if (tags != null)
+            {
+                foreach (string item in tags)
+                {
+                    TagModel tag = new TagModel() { Title = item };
+                    _tagRepository.Create(tag);
+                    articleTagList.Add(new ArticleTagModel()
+                    {
+                        ArticleId = articleId,
+                        TagId = tag.Id
+                    });
+                }
+            }
+            return articleTagList;
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
