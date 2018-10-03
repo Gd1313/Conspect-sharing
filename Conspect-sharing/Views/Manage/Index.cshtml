@@ -3,17 +3,27 @@
     ViewData["Title"] = "Profile";
     ViewData.AddActivePage(ManageNavPages.Index);
 }
+@inject UserManager<ApplicationUser> UserManager
+<head>
+    <link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+</head>
+<body>
 
+    @if (Model.Role)
+    {
 
-<a asp-area="" asp-controller="Manage" asp-action="Article">Create article</a>
-<br />
+        <a asp-area="" asp-controller="Manage" asp-action="AdminTable">Open admin panel</a>
 
-@if (Model.Role)
-{
-    <a asp-area="" asp-controller="Manage" asp-action="AdminTable">Open admin panel</a>
+    }
+    else
+    {
 
-}
-else
-{
+    }
+    <a href="#" id="username">@UserManager.GetUserName(User)</a>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script>
 
-}
+    </script>
+</body>

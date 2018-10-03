@@ -14,8 +14,7 @@ namespace Conspect_sharing.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
+        {var user= HttpContext.User.Identity.Name; return View();
         }
 
         public IActionResult About()

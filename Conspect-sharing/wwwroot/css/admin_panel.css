@@ -1,0 +1,29 @@
+﻿#form {
+    width: 490px;
+    height: 0px;
+    position: absolute;
+    top: 15%;
+    left: 22px;
+    margin: auto;
+    background: #fff;
+}
+
+.d {
+    border: 1px solid black;
+    border-radius: 10%;
+    padding: 10px;
+    color: #9d9d9d;
+    background: #333;
+    font-weight: 800;
+}
+
+#blackout:target {
+    display: block;
+}
+
+.close {
+    margin-left: 50px;
+    margin-top: 5px;
+}
+        body {
+}

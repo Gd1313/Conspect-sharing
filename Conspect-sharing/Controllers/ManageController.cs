@@ -22,6 +22,7 @@ namespace Conspect_sharing.Controllers
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
+
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -654,6 +655,13 @@ namespace Conspect_sharing.Controllers
                 }
             }
             return articleTagList;
+        }
+
+        public async void  ChangeUserData(string value)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.UserName = value;
+            await _userManager.UpdateAsync(user);
         }
 
         #region Helpers

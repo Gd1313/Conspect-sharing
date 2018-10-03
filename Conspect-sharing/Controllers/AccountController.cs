@@ -63,7 +63,7 @@ namespace Conspect_sharing.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
+                var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 { 
                     if (!await _userManager.IsEmailConfirmedAsync(user))
@@ -72,7 +72,8 @@ namespace Conspect_sharing.Controllers
                         return View(model);
                     }
                 }
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+            
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -232,8 +233,7 @@ namespace Conspect_sharing.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                user.SelectedLanguage = "ru";
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, SelectedLanguage = "ru" };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

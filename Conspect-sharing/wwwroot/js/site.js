@@ -68,3 +68,11 @@ $("#sibmit_button").click(function () {
         window.location.href = href;
     });
 });
+
+$('#username').editable({
+    type: 'text',
+    pk: 1,
+    name: 'username',
+    url: '/Manage/ChangeUserData',
+    title: 'Enter username'
+});
