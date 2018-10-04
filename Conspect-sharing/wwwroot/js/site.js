@@ -32,14 +32,14 @@ function set_theme(theme) {
     if (supports_storage) {
         localStorage.theme = theme;
     }
-    console.log(localStorage.theme);
+    //console.log(localStorage.theme);
 }
 
 /* On load, set theme from local storage */
 if (supports_storage) {
     var themesheet = $('<link href="' + themes['default'] + '" rel="stylesheet" />');
     themesheet.appendTo('head');
-    console.log(localStorage.theme);
+    //console.log(localStorage.theme);
     var theme = localStorage.theme;
     if (theme) {
         themesheet.attr('href', theme);
@@ -58,21 +58,49 @@ function getDataFromForm() {
         name: $('input[name=Name]').val(),
         tags: $('input[name=Tags]').tagsinput('items')
     };
-    console.log('heh');
     return data;
 }
 
 $("#sibmit_button").click(function () {
     let data = getDataFromForm();
-    sendRequest("/Manage/CreateArticle", data, function (href) {
-        window.location.href = href;
-    });
+    var constraints = {
+        description: {
+            presence: true,
+            length: {
+                minimum: 3,
+                maximum: 20
+            }
+        },
+        specialty: {
+            presence: true,
+            length: {
+                minimum: 3,
+                maximum: 20
+            }
+        },
+        name: {
+            presence: true,
+            length: {
+                minimum: 3,
+                maximum: 20
+            }
+        }
+    };
+
+
+    if (validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }) ===null) {
+        sendRequest("/Manage/CreateArticle", data, function (href) {
+            window.location.href = href;
+        });
+    } else {
+        console.log('g');
+    }
 });
 
 $('#username').editable({
     type: 'text',
     pk: 1,
     name: 'username',
-    url: '/Manage/ChangeUserData',
+    url: '/Manage/ChangeUserName',
     title: 'Enter username'
 });

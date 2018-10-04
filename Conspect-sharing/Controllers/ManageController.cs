@@ -657,7 +657,7 @@ namespace Conspect_sharing.Controllers
             return articleTagList;
         }
 
-        public async Task  ChangeUserData(string value)
+        public async Task  ChangeUserName(string value)
         {
             var user = await _userManager.GetUserAsync(User);
             user.UserName = value;
