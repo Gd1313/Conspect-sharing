@@ -453,15 +453,15 @@ namespace Conspect_sharing.Controllers
         public async Task<IActionResult> SetLanguage(string culture,string returnUrl)
         {
 
-            ApplicationUser User = await _userManager.GetUserAsync(HttpContext.User); 
-            User.SelectedLanguage = culture;
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            user.SelectedLanguage = culture;
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            await _userManager.UpdateAsync(User);
+            await _userManager.UpdateAsync(user);
 
             return LocalRedirect(returnUrl);
         }

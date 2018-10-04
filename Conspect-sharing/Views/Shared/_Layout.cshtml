@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -54,6 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Localizer["Home"]</a>
             </div>
             <div class="navbar-collapse collapse">
@@ -69,13 +68,15 @@
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
+            <div>
+                @await Html.PartialAsync("_SelectLanguagePartial")
+            </div>
         </div>
-        <div class="container body-content">
-            @await Html.PartialAsync("_SelectLanguagePartial")
-        </div>
+         
     </nav>
 
     <div class="container body-content">
+       
         @RenderBody()
         <hr />
         <footer>
