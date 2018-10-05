@@ -617,6 +617,22 @@ namespace Conspect_sharing.Controllers
             return View(model);
         }
 
+        //public async Task<IActionResult> ArticleTable()
+        //{
+        //    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    _articleRepository.GetUserArticle(new Guid(currentUser.Id));
+        //    ArticleTable model = new ArticleTable()
+        //    {
+        //        Description = article.Description,
+        //        Specialty = article.Specialty,
+        //        CreatedDate=article.CreatedDate,
+        //        Name=article.Name
+        //    };
+        //    //_articleRepository.Create(model);
+        //    //return RedirectToAction("Index", "Home");
+        //    return View(model);
+        //}
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateArticle(ArticleData article)
@@ -634,7 +650,7 @@ namespace Conspect_sharing.Controllers
                 Tags = CreateArticleTagList(article.Tags, article.Id)
             };
             _articleRepository.Create(model);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Manage");
         }
 
         [NonAction]
@@ -662,6 +678,12 @@ namespace Conspect_sharing.Controllers
             var user = await _userManager.GetUserAsync(User);
             user.UserName = value;
             await _userManager.UpdateAsync(user);
+        }
+
+        public IActionResult ViewArticle()
+        {
+            var model = new ArticleData();
+            return View(model);
         }
 
         #region Helpers

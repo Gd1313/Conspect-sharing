@@ -83,5 +83,10 @@ namespace Conspect_sharing.Services.Repositories
             applicationDbContext.Articles.Update(t);
             applicationDbContext.SaveChanges();
         }
+
+        public IQueryable<ArticleModel> GetUserArticle(Guid id)
+        {
+            return applicationDbContext.Articles.Where(a => a.UserId == id);
+        }
     }
 }

@@ -12,22 +12,22 @@
     <div class="row">
         <div class="col-md-4">
             <form asp-action="CreateArticle" asp-controller="Manage">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" id="sumary"></div>
 
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
                     <input asp-for="Description" id="description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <span asp-validation-for="Description" class="text-danger" id="des_span"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Specialty" class="control-label"></label>
                     <input asp-for="Specialty" id="specialty" class="form-control" />
-                    <span asp-validation-for="Specialty" class="text-danger"></span>
+                    <span asp-validation-for="Specialty" class="text-danger" id="spec_span"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" id="name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <span asp-validation-for="Name" class="text-danger" id="name_span"></span>
                 </div>
                 <div class="form-group" style="width:700px">
                     <label asp-for="Text" class="control-label"></label>
