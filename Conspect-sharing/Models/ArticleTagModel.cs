@@ -7,11 +7,11 @@ namespace Conspect_sharing.Models
 {
     public class ArticleTagModel
 {
-    public Guid Id { get; set; }
-    public Guid ArticleId { get; set; }
+    public string Id { get; set; }
+    public string ArticleId { get; set; }
     public ArticleModel Article { get; set; }
 
-    public Guid TagId { get; set; }
+    public string TagId { get; set; }
     public TagModel Tag { get; set; }
 }
 }

@@ -622,8 +622,8 @@ namespace Conspect_sharing.Controllers
             List<ArticleListViewModel> articleListViews = new List<ArticleListViewModel>();
             var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             IQueryable<ArticleModel> articles;
-            articles = _articleRepository.GetUserArticle(new Guid(currentUser.Id));
-            _articleRepository.GetUserArticle(new Guid(currentUser.Id));
+            articles = _articleRepository.GetUserArticle(currentUser.Id);
+            _articleRepository.GetUserArticle(currentUser.Id);
             foreach (ArticleModel article in articles)
             {
                 articleListViews.Add(new ArticleListViewModel()
@@ -634,8 +634,6 @@ namespace Conspect_sharing.Controllers
                     Id = article.Id
                 });
             }
-            //_articleRepository.Create(model);
-            //return RedirectToAction("Index", "Home");
             return View(articleListViews);
         }
 
@@ -652,7 +650,7 @@ namespace Conspect_sharing.Controllers
                 Description = article.Description,
                 Specialty = article.Specialty,
                 Name = article.Name,
-                UserId = new Guid(currentUser.Id),
+                UserId = currentUser.Id,
                 Tags = CreateArticleTagList(article.Tags, article.Id)
             };
             _articleRepository.Create(model);
@@ -660,7 +658,7 @@ namespace Conspect_sharing.Controllers
         }
 
         [NonAction]
-        private List<ArticleTagModel> CreateArticleTagList(List<string> tags, Guid articleId)
+        private List<ArticleTagModel> CreateArticleTagList(List<string> tags, string articleId)
         {
             List<ArticleTagModel> articleTagList = new List<ArticleTagModel>();
             if (tags != null)

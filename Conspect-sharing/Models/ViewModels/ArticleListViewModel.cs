@@ -7,7 +7,7 @@ namespace Conspect_sharing.Models.ViewModels
 {
     public class ArticleListViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Description { get; set; }
         public string Specialty { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -15,6 +15,7 @@ using Conspect_sharing.Models.AccountViewModels;
 using Conspect_sharing.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
 
 namespace Conspect_sharing.Controllers
 {
@@ -72,8 +73,8 @@ namespace Conspect_sharing.Controllers
                         return View(model);
                     }
                 }
-            
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -225,6 +226,13 @@ namespace Conspect_sharing.Controllers
             return View();
         }
 
+        //[NonAction]
+        private string GetCulture()
+        {
+            return CultureInfo.CurrentUICulture.Name;
+        }
+
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -233,7 +241,7 @@ namespace Conspect_sharing.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, SelectedLanguage = "ru" };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, SelectedLanguage =GetCulture()};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
