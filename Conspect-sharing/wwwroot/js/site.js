@@ -4,7 +4,7 @@
     "default": "lib/bootstrap/dist/css/bootstrap.min.css",
     "cosmo": "lib/bootswatch/cosmo/bootstrap.min.css",
     "united": "lib/bootswatch/superhero/bootstrap.min.css"
-}
+    }
         $(function () {
             var themesheet = $('<link href="' + themes['default'] + '" rel="stylesheet" />');
              themesheet.appendTo('head');
@@ -117,7 +117,7 @@ function sendRequest(url, data, callback) {
         url: url,
         data: data,
         success: function (data) {
-            if (callback != null) {
+            if (callback!= null) {
                 callback(data);
             }
         }

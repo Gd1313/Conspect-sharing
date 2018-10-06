@@ -541,7 +541,7 @@ namespace Conspect_sharing.Controllers
             ApplicationUser user = new ApplicationUser();
             foreach (string id in arr)
             {
-                user = await _userManager.FindByEmailAsync(id);
+                user = await _userManager.FindByNameAsync(id);
                 if (user.Email == User.Identity.Name)
                 {
                     await _signInManager.SignOutAsync();
@@ -557,8 +557,8 @@ namespace Conspect_sharing.Controllers
             ApplicationUser user = new ApplicationUser();
             foreach (string id in arr)
             {
-                user = await _userManager.FindByEmailAsync(id);
-                if (user.Email == User.Identity.Name)
+                user = await _userManager.FindByNameAsync(id);
+                if (user.UserName == User.Identity.Name)
                 {
                     //await _signInManager.SignOutAsync();
                 }
@@ -583,9 +583,9 @@ namespace Conspect_sharing.Controllers
             ApplicationUser user = new ApplicationUser();
             foreach (string id in arr)
             {
-                user = await _userManager.FindByEmailAsync(id);
+                user = await _userManager.FindByNameAsync(id);
                 user.LockoutEnabled = false;
-                if (user.Email == User.Identity.Name)
+                if (user.UserName == User.Identity.Name)
                 {
                     await _signInManager.SignOutAsync();
                 }
@@ -601,9 +601,9 @@ namespace Conspect_sharing.Controllers
             ApplicationUser user = new ApplicationUser();
             foreach (string id in arr)
             {
-                user = await _userManager.FindByEmailAsync(id);
+                user = await _userManager.FindByNameAsync(id);
                 user.LockoutEnabled = true;
-                if (user.Email == User.Identity.Name)
+                if (user.UserName == User.Identity.Name)
                 {
                     // await _signInManager.SignOutAsync();
                 }
@@ -617,21 +617,27 @@ namespace Conspect_sharing.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> ArticleTable()
-        //{
-        //    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    _articleRepository.GetUserArticle(new Guid(currentUser.Id));
-        //    ArticleTable model = new ArticleTable()
-        //    {
-        //        Description = article.Description,
-        //        Specialty = article.Specialty,
-        //        CreatedDate=article.CreatedDate,
-        //        Name=article.Name
-        //    };
-        //    //_articleRepository.Create(model);
-        //    //return RedirectToAction("Index", "Home");
-        //    return View(model);
-        //}
+        public async Task<IActionResult> ArticleTable()
+        {
+            List<ArticleListViewModel> articleListViews = new List<ArticleListViewModel>();
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            IQueryable<ArticleModel> articles;
+            articles = _articleRepository.GetUserArticle(new Guid(currentUser.Id));
+            _articleRepository.GetUserArticle(new Guid(currentUser.Id));
+            foreach (ArticleModel article in articles)
+            {
+                articleListViews.Add(new ArticleListViewModel()
+                {
+                    Name = article.Name,
+                    Description = article.Description,
+                    Specialty = article.Specialty,
+                    Id = article.Id
+                });
+            }
+            //_articleRepository.Create(model);
+            //return RedirectToAction("Index", "Home");
+            return View(articleListViews);
+        }
 
         [Authorize]
         [HttpPost]
