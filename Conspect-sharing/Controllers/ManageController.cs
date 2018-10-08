@@ -69,6 +69,7 @@ namespace Conspect_sharing.Controllers
 
             var model = new IndexViewModel
             {
+                UserId = (new Guid(user.Id)),
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
@@ -611,9 +612,9 @@ namespace Conspect_sharing.Controllers
             }
             return true;
         }
-        public IActionResult Article()
+        public IActionResult Article(string userId)
         {
-            var model = new ArticleData();
+            var model = new ArticleData() { UserId = new Guid(userId) };
             return View(model);
         }
 

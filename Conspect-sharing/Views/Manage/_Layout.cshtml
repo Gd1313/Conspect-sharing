@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,7 +10,7 @@
     <hr />
     <div class="row">
         <div class="col-md-3">
-            @await Html.PartialAsync("_ManageNav")
+            @await Html.PartialAsync("_ManageNav", model.UserId)
         </div>
         <div class="col-md-9">
             @RenderBody()

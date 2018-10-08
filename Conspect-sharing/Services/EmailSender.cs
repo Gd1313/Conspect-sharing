@@ -23,7 +23,7 @@ namespace Conspect_sharing.Services
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта Conspect-sharing", "iluxadcp1@gmail.com"));
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта Conspect-sharing", _configuration["SiteEmail"]));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

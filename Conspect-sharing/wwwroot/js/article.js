@@ -10,12 +10,21 @@
     return data;
 }
 
-$("#sibmit_button").click(function () {
-    let data = getDataFromForm();
+function createArticle(userId) {
+    let data = getFormData();
+    $('#sibmit_button').prop("disabled", true);
+    data.userId = userId;
     sendRequest("/Manage/CreateArticle", data, function (href) {
         window.location.href = href;
     });
-});
+}
+
+//$("#sibmit_button").click(function () {
+//    let data = getDataFromForm();
+//    sendRequest("/Manage/CreateArticle", data, function (href) {
+//        window.location.href = href;
+//    });
+//});
 var constraints = {
     description: {
         presence: true,

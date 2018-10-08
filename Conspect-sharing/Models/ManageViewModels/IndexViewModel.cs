@@ -8,6 +8,8 @@ namespace Conspect_sharing.Models.ManageViewModels
 {
     public class IndexViewModel
     {
+        public Guid UserId { get; set; }
+
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
