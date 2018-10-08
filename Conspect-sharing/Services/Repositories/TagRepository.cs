@@ -16,7 +16,7 @@ namespace Conspect_sharing.Services.Repositories
         Context = context;
     }
 
-    public TagModel Get(string id)
+    public TagModel Get(Guid id)
     {
         return Context.Tags
         .Include(t => t.ArticleTags)

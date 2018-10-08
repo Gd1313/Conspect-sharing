@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Conspect_sharing.Data.Migrations
 {
-    public partial class GuidChange : Migration
+    public partial class Guids : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,95 +28,104 @@ namespace Conspect_sharing.Data.Migrations
                 name: "FK_Marks_Articles_ArticleId",
                 table: "Marks");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "Tags",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "UserId",
                 table: "Marks",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "ArticleId",
                 table: "Marks",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "Marks",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "UserId",
                 table: "Likes",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "CommentId",
                 table: "Likes",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "Likes",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "UserId",
                 table: "Comments",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "ArticleId",
                 table: "Comments",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "Comments",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "TagId",
                 table: "ArticleTags",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "ArticleId",
                 table: "ArticleTags",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "ArticleTags",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "UserId",
                 table: "Articles",
-                nullable: true,
-                oldClrType: typeof(Guid));
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<Guid>(
                 name: "Id",
                 table: "Articles",
                 nullable: false,
-                oldClrType: typeof(Guid));
+                oldClrType: typeof(string));
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ArticleTags_Articles_ArticleId",
@@ -124,7 +133,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ArticleTags_Tags_TagId",
@@ -132,7 +141,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "TagId",
                 principalTable: "Tags",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Comments_Articles_ArticleId",
@@ -140,7 +149,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Likes_Comments_CommentId",
@@ -148,7 +157,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "CommentId",
                 principalTable: "Comments",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Marks_Articles_ArticleId",
@@ -156,7 +165,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -181,104 +190,95 @@ namespace Conspect_sharing.Data.Migrations
                 name: "FK_Marks_Articles_ArticleId",
                 table: "Marks");
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "Tags",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Marks",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "ArticleId",
                 table: "Marks",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "Marks",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Likes",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "CommentId",
                 table: "Likes",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "Likes",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Comments",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "ArticleId",
                 table: "Comments",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "Comments",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "TagId",
                 table: "ArticleTags",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "ArticleId",
                 table: "ArticleTags",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "ArticleTags",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Articles",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true,
+                oldClrType: typeof(Guid));
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Id",
                 table: "Articles",
                 nullable: false,
-                oldClrType: typeof(string));
+                oldClrType: typeof(Guid));
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ArticleTags_Articles_ArticleId",
@@ -286,7 +286,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ArticleTags_Tags_TagId",
@@ -294,7 +294,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "TagId",
                 principalTable: "Tags",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Comments_Articles_ArticleId",
@@ -302,7 +302,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Likes_Comments_CommentId",
@@ -310,7 +310,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "CommentId",
                 principalTable: "Comments",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Marks_Articles_ArticleId",
@@ -318,7 +318,7 @@ namespace Conspect_sharing.Data.Migrations
                 column: "ArticleId",
                 principalTable: "Articles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

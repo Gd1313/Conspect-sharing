@@ -21,4 +21,3 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Re
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.Index.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.Index.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._ManageNav.ru.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csprojAssemblyReference.cache

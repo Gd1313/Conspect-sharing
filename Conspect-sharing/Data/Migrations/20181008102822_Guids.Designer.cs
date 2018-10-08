@@ -11,8 +11,8 @@ using System;
 namespace Conspect_sharing.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181006182922_GuidChange")]
-    partial class GuidChange
+    [Migration("20181008102822_Guids")]
+    partial class Guids
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,7 +76,7 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.ArticleModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedDate");
@@ -91,7 +91,7 @@ namespace Conspect_sharing.Data.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -100,12 +100,12 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.ArticleTagModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArticleId");
+                    b.Property<Guid>("ArticleId");
 
-                    b.Property<string>("TagId");
+                    b.Property<Guid>("TagId");
 
                     b.HasKey("Id");
 
@@ -118,16 +118,16 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.CommentModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArticleId");
+                    b.Property<Guid>("ArticleId");
 
                     b.Property<string>("Comment");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -138,12 +138,12 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.LikeModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CommentId");
+                    b.Property<Guid>("CommentId");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -154,12 +154,12 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.MarkModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArticleId");
+                    b.Property<Guid>("ArticleId");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.Property<int>("Value");
 
@@ -172,7 +172,7 @@ namespace Conspect_sharing.Data.Migrations
 
             modelBuilder.Entity("Conspect_sharing.Models.TagModel", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Title");
@@ -294,32 +294,37 @@ namespace Conspect_sharing.Data.Migrations
                 {
                     b.HasOne("Conspect_sharing.Models.ArticleModel", "Article")
                         .WithMany("Tags")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Conspect_sharing.Models.TagModel", "Tag")
                         .WithMany("ArticleTags")
-                        .HasForeignKey("TagId");
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conspect_sharing.Models.CommentModel", b =>
                 {
                     b.HasOne("Conspect_sharing.Models.ArticleModel", "Article")
                         .WithMany("Comments")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conspect_sharing.Models.LikeModel", b =>
                 {
                     b.HasOne("Conspect_sharing.Models.CommentModel", "Comment")
                         .WithMany("Likes")
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conspect_sharing.Models.MarkModel", b =>
                 {
                     b.HasOne("Conspect_sharing.Models.ArticleModel", "Article")
                         .WithMany("Marks")
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -7,11 +7,11 @@ namespace Conspect_sharing.Models
 {
     public class MarkModel
     {
-    public string Id { get; set; }
-    public string UserId { get; set; }
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
     public int Value { get; set; }
 
-    public string ArticleId { get; set; }
+    public Guid ArticleId { get; set; }
     public ArticleModel Article { get; set; }
 }
 }

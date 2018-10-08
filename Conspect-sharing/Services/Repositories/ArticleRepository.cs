@@ -17,7 +17,7 @@ namespace Conspect_sharing.Services.Repositories
             this.applicationDbContext = applicationDbContext;
         }
 
-        public ArticleModel Get(string id)
+        public ArticleModel Get(Guid id)
         {
             return applicationDbContext.Articles.Include(a => a.Comments)
             .ThenInclude(c => c.Likes)
@@ -71,7 +71,7 @@ namespace Conspect_sharing.Services.Repositories
             applicationDbContext.SaveChanges();
         }
 
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             ArticleModel article = Get(id);
             applicationDbContext.Articles.Remove(article);
@@ -84,7 +84,7 @@ namespace Conspect_sharing.Services.Repositories
             applicationDbContext.SaveChanges();
         }
 
-        public IQueryable<ArticleModel> GetUserArticle(string id)
+        public IQueryable<ArticleModel> GetUserArticle(Guid id)
         {
             return applicationDbContext.Articles.Where(a => a.UserId == id);
         }
