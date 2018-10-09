@@ -1,14 +1,4 @@
-﻿function getDataFromForm() {
-    let data = {
-        text: simplemde.value(),
-        id: $('input[name=Id]').val(),
-        description: $('input[name=Description]').val(),
-        specialty: $('input[name=Specialty]').val(),
-        name: $('input[name=Name]').val(),
-        tags: $('input[name=Tags]').tagsinput('items')
-    };
-    return data;
-}
+﻿
 
 function createArticle(userId) {
     let data = getFormData();
@@ -48,6 +38,18 @@ var constraints = {
         }
     }
 };
+
+function getDataFrom() {
+    let data = {
+        text: simplemde.value(),
+        id: $('input[name=Id]').val(),
+        description: $('input[name=Description]').val(),
+        specialty: $('input[name=Specialty]').val(),
+        name: $('input[name=Name]').val(),
+        tags: $('input[name=Tags]').tagsinput('items')
+    };
+    return data;
+}
 
 //if (validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }) != undefined)
 //{

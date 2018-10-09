@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Hello" xml:space="preserve">
-    <value>Прывітанне</value>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Панэль адміністратара</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Уваход</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Выхад</value>
+  </data>
+  <data name="PersonalArea" xml:space="preserve">
+    <value>Асабісты кабінет</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Рэгістрацыя</value>
   </data>
 </root>

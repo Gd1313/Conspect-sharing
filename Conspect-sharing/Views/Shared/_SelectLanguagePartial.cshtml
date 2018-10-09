@@ -19,7 +19,7 @@
         .ToList();
 }
 
-    <form asp-controller="Account" asp-action="SetLanguage" style="margin-top:20px;"
+    <form asp-controller="Account" asp-action="SetLanguage" style="margin-top:20px; color:crimson"
           asp-route-returnUrl="@Context.Request.Path"
           method="post" class="form-horizontal">
         @Localizer["Language:"] <select name="culture" onchange="this.form.submit();"

@@ -5,12 +5,9 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-
 <ul class="nav nav-pills nav-stacked">
     <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">@Localizer["Profile"]</a></li>
     <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a asp-action="ChangePassword">@Localizer["Password"]</a></li>
-    <li><a asp-area="" asp-controller="Manage" asp-action="Article" onclick="location.href='@Url.Action("Article", "Manage", new { userId=Model.UserId })'">@Localizer["Create_article"]</a></li>
-    <li><a asp-area="" asp-controller="Manage" asp-action="ViewArcticle">View arcticle</a></li>
-    <li><a asp-area="" asp-controller="Manage" asp-action="ArticleTable">Open article table</a></li>
+ 
 </ul>
 

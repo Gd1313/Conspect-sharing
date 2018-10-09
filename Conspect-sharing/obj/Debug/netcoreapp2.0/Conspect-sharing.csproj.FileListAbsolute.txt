@@ -8,7 +8,6 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.As
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.AssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dll
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csproj.GenerateResource.cache
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
@@ -16,9 +15,11 @@ C:\Conspect-sharing\Conspect-sharing\bin\Debug\netcoreapp2.0\be\Conspect-sharing
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\be\Conspect-sharing.resources.dll
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._Layout.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._Layout.ru.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartical.be.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartical.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.Index.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.Index.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._ManageNav.ru.resources
-C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csprojAssemblyReference.cache
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartial.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._LoginPartial.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.Index.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.Index.ru.resources

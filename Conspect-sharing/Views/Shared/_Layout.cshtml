@@ -39,8 +39,6 @@
 <body>
 
 
-
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -50,8 +48,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
+                <div class="navbar-left">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Localizer["Home"]</a>
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -64,17 +65,16 @@
                         </ul>
                     </li>
                 </ul>
+
                 @await Html.PartialAsync("_LoginPartial")
             </div>
-            <div>
-                @await Html.PartialAsync("_SelectLanguagePartial")
-            </div>
+           
         </div>
-         
+
     </nav>
 
     <div class="container body-content">
-       
+
         @RenderBody()
         <hr />
         <footer>

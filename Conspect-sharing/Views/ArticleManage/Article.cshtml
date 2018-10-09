@@ -50,9 +50,7 @@
         </div>
     </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+
     <script src="~/js/bootstrap-tagsinput_min.js"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.24.0/codemirror.js"></script>
@@ -60,7 +58,84 @@
     <script src="~/js/editor.js"></script>
     <script src="~/js/validate.js"></script>
     @*<script src="~/js/site.js"></script>*@
-    <script src="~/js/article.js"></script>
+    <script >
+        function createArticle(userId) {
+            let data = getFormData();
+            $('#sibmit_button').prop("disabled", true);
+            data.userId = userId;
+            sendRequest("/Manage/CreateArticle", data, function (href) {
+                window.location.href = href;
+            });
+        }
+        var constraints = {
+            description: {
+                presence: true,
+                length: {
+                    minimum: 3,
+                    maximum: 20
+                }
+            },
+            specialty: {
+                presence: true,
+                length: {
+                    minimum: 3,
+                    maximum: 20
+                }
+            },
+            name: {
+                presence: true,
+                length: {
+                    minimum: 3,
+                    maximum: 20
+                }
+            }
+        };
+
+        function getFormData() {
+            let data = {
+                text: simplemde.value(),
+                id: $('input[name=Id]').val(),
+                description: $('input[name=Description]').val(),
+                specialty: $('input[name=Specialty]').val(),
+                name: $('input[name=Name]').val(),
+                tags: $('input[name=Tags]').tagsinput('items')
+            };
+            return data;
+        }
+
+        //if (validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }) != undefined)
+        //{
+        //    //let dep_span = document.getElementById("des_span");
+        //    //let spec_span = document.getElementById("spec_span");
+        //    //let name_span = document.getElementById("name_span");
+        //    let err = validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" });
+        //    var spans = ["des_span","spec_span", "name_span"];
+        //    //$("#dep_span").text(validate({ description: data.description }, constraints, { format: "flat" }));
+        //    //$("#spec_span").text(validate({ specialty: data.specialty }, constraints, { format: "flat" }));
+        //    //$("#name_span").text(validate({ name: data.name }, constraints, { format: "flat" }));
+        //    for (var i = 0; i < length; i++) {
+        //        $("#"+spans[i]).text(err[i]);
+        //    }
+        //} else {
+        //    console.log(validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }))
+
+        //    });
+        //}
+
+
+        function sendRequest(url, data, callback) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (data) {
+                    if (callback != null) {
+                        callback(data);
+                    }
+                }
+            });
+        }
+    </script>
 
 </body>
 

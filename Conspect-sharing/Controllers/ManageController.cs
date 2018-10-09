@@ -612,11 +612,12 @@ namespace Conspect_sharing.Controllers
             }
             return true;
         }
-        public IActionResult Article(string userId)
-        {
-            var model = new ArticleData() { UserId = new Guid(userId) };
-            return View(model);
-        }
+     
+        //public IActionResult Article()
+        //{
+        //    var model = new ArticleData()  ;
+        //    return View(model);
+        //}
 
         public async Task<IActionResult> ArticleTable()
         {
@@ -654,7 +655,7 @@ namespace Conspect_sharing.Controllers
                 Tags = CreateArticleTagList(article.Tags, article.Id)
             };
             _articleRepository.Create(model);
-            return "Index";
+            return "/Manage/Index";
         }
 
         [NonAction]
