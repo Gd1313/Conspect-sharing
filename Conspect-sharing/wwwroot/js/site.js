@@ -5,6 +5,7 @@ var themes = {
     "cosmo": "lib/bootswatch/cosmo/bootstrap.min.css",
     "united": "lib/bootswatch/superhero/bootstrap.min.css"
 }
+
 $(function () {
     var themesheet = $('<link href="' + themes['default'] + '" rel="stylesheet" />');
     themesheet.appendTo('head');

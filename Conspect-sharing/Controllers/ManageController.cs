@@ -619,70 +619,17 @@ namespace Conspect_sharing.Controllers
         //    return View(model);
         //}
 
-        public async Task<IActionResult> ArticleTable()
-        {
-            List<ArticleListViewModel> articleListViews = new List<ArticleListViewModel>();
-            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            List<ArticleModel> articles;
-             articles = _articleRepository.GetUserArticle(new Guid(currentUser.Id)).ToList();
-            foreach (ArticleModel article in articles)
-            {
-                articleListViews.Add(new ArticleListViewModel()
-                {
-                    Name = article.Name,
-                    Description = article.Description,
-                    Specialty = article.Specialty,
-                    Id = article.Id
-                });
-            }
-            return View(articleListViews);
-        }
+       
 
-        [Authorize]
-        [HttpPost]
-        public async Task<string> CreateArticle(ArticleData article)
-        {
-            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            ArticleModel model = new ArticleModel()
-            {
-                Text = article.Text,
-                CreatedDate = DateTime.Now,
-                LastModifeDate = DateTime.Now,
-                Description = article.Description,
-                Specialty = article.Specialty,
-                Name = article.Name,
-                UserId = (new Guid(currentUser.Id)),
-                Tags = CreateArticleTagList(article.Tags, article.Id)
-            };
-            _articleRepository.Create(model);
-            return "/Manage/Index";
-        }
-
-        [NonAction]
-        private List<ArticleTagModel> CreateArticleTagList(List<string> tags, Guid articleId)
-        {
-            List<ArticleTagModel> articleTagList = new List<ArticleTagModel>();
-            if (tags != null)
-            {
-                foreach (string item in tags)
-                {
-                    TagModel tag = new TagModel() { Title = item };
-                    _tagRepository.Create(tag);
-                    articleTagList.Add(new ArticleTagModel()
-                    {
-                        ArticleId = articleId,
-                        TagId = tag.Id
-                    });
-                }
-            }
-            return articleTagList;
-        }
+      
+      
 
         public async Task  ChangeUserName(string value)
         {
             var user = await _userManager.GetUserAsync(User);
-            user.UserName = value;
-            await _userManager.UpdateAsync(user);
+            var current_user= await _userManager.FindByIdAsync(user.Id);
+            current_user.UserName = value;
+            await _userManager.UpdateAsync(current_user);
         }
 
         public IActionResult ViewArticle()
