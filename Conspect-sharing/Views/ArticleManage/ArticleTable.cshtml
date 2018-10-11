@@ -39,7 +39,7 @@
             <td>
                 @Html.ActionLink("Редактировать", "EditArticle", "ArticleManage", new { id = item.Id }) |
                 @Html.ActionLink("Удалить", "DeleteArticle", "ArticleManage", new { articleId = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Просмотр", "ArticleRead", "ArticleManage", new { id = item.Id })
             </td>
         </tr>
 }

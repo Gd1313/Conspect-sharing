@@ -30,3 +30,6 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\ru\Conspect-sharing
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dll
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.csprojAssemblyReference.cache
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.ArticleRead.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.ArticleRead.ru.resources

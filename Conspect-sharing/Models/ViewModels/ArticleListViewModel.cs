@@ -12,6 +12,7 @@ namespace Conspect_sharing.Models.ViewModels
         public string Specialty { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Name { get; set; }
-
+        public DateTime LastModifeDate { get; set; }
+        public double Rate { get; set; }
     }
 }

@@ -26,5 +26,6 @@ namespace Conspect_sharing.Data
         public DbSet<LikeModel> Likes { get; set; }
         public DbSet<MarkModel> Marks { get; set; }
         public DbSet<TagModel> Tags { get; set; }
+        public DbSet<QueryModel> Queries { get; set; }
     }
 }

@@ -1,0 +1,166 @@
+﻿@model Conspect_sharing.Models.ViewModels.ArticleReadViewModel
+
+<div class="container">
+    <div class="readArticle">
+        <div id="name">
+            <h1><b> @Localizer["Description"]</b></h1>
+            <h2 class="article-name">@Html.DisplayFor(model => model.Name)</h2>
+        </div>
+        <div id="speciality">
+            <h1><b>@Localizer["Speciality"]</b></h1>
+            <h2 class="article-speciality">@Html.DisplayFor(model => model.Specialty) </h2>
+        </div>
+
+        <div id="dates">
+            <div id="username" style="margin-left:75%">
+                @Localizer["UserName"]
+                <span class="article-info"> @Html.DisplayFor(model => model.UserName)</span>
+            </div>
+            <div id="createdDate" style="margin-left:75%">
+                @Localizer["CreationDate"]
+                <span class="article-info">@Html.DisplayFor(model => model.CreatedDate)</span>
+            </div>
+            <div id="modifiedDate" style="margin-left:75%; margin-bottom:10px;">
+                @Localizer["LastModifeDate"]
+                <span class="article-info">@Html.DisplayFor(model => model.LastModifeDate)</span>
+            </div>
+        </div>
+
+
+
+        <div id="exportContent" class="pre-scrolable ">
+            @Html.Raw(Model.Text)
+        </div>
+
+        <div class="article-rate">
+            <div id="rateId" data-value="@Model.Id"></div>
+        </div>
+        <div id="tags">
+            @if (Model.Tags != null)
+            {
+                @Localizer["Tags"]
+                <p>
+                    @foreach (var teg in Model.Tags)
+                    {
+                        <a class="tag label label-primary"
+                           href='@Url.Action("SearchByHashtag","Home",new { hashtag=teg })'>@teg</a>
+                    }
+                </p>
+            }
+        </div>
+
+        <div>
+            <label> @Localizer["Download"]</label>
+            <br />
+            <button type="button" style="margin-top:12px;" class="btn btn-default btn-sm"
+                    onclick="Export2Doc('exportContent','@Model.UserName');">
+                <span class="glyphicon glyphicon-download-alt"></span>
+            </button>
+        </div>
+
+
+
+    </div>
+ 
+    <H3> @Localizer["Comments"]</H3>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel comment-input">
+                    <div class="panel-body">
+                        <textarea class="form-control" rows="2" id="commentFiled"
+                                  placeholder="Добавьте Ваш комментарий"></textarea>
+                        <div class="mar-top clearfix">
+                            <button id="submitComment" onclick="ProcessComment('@Model.Id')"
+                                    style="margin-top:20px;" class="btn btn-sm btn-primary pull-right" type="button">
+                                <i class="fa fa-pencil fa-fw"></i> @Localizer["AddComment"]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel comment-list">
+                    <div class="panel-body" id="Comments_@Model.Id">
+                        @foreach (var i in Model.Comments)
+                        {
+                            <div class="media-block">
+                                <div class="media-body">
+                                    <div class="mar-btm">
+                                        <span class=" text-semibold media-heading box-inline comment-Name">@i.Name</span>
+                                        <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - @i.Date</span>
+                                    </div>
+                                    <br />
+                                    <p>  @i.Comment</p>
+                                    <div class="pad-ver">
+                                        <span class=" tag-sm"><i class="fa fa-heart text-danger"></i> @i.Likes </span>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-default btn-hover-success active"
+                                                    id="like" onclick="ProcessLike('@i.Id')">
+                                                <i class="fa fa-thumbs-up"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script src="~/lib/editor/editor.js"></script>
+    <script>
+    @*$("#rateId").rateYo({
+        rating: @Model.Rate.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")),
+        starWidth: "20px",
+        readOnly: @Model.IsAvailableRate.ToString().ToLower()
+    });
+    $("#rateId").rateYo()
+        .on("rateyo.set", function (e, data) {
+            ProcessRate($("#rateId").data("value"), data.rating);
+        });*@
+/**/
+
+            function Export2Doc(element, filename = '') {
+                var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+                var postHtml = "</body></html>";
+                var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+
+                var blob = new Blob(['\ufeff', html], {
+                    type: 'application/msword'
+                });
+
+                // Specify link url
+                var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+                // Specify file name
+                filename = filename ? filename + '.doc' : 'document.doc';
+
+                // Create download link element
+                var downloadLink = document.createElement("a");
+
+                document.body.appendChild(downloadLink);
+
+                if (navigator.msSaveOrOpenBlob)
+                {
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                }
+                else
+                {
+                    // Create a link to the file
+                    downloadLink.href = url;
+
+                    // Setting the file name
+                    downloadLink.download = filename;
+
+                    //triggering the function
+                    downloadLink.click();
+                }
+
+                document.body.removeChild(downloadLink);
+            }
+        </script>
+        }

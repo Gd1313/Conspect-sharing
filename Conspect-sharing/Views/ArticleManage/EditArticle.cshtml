@@ -1,4 +1,4 @@
-﻿@model Conspect_sharing.Models.ArticleModel
+﻿@model Conspect_sharing.Models.ViewModels.ArticleData
 <head>
     <link rel="stylesheet" href="~/css/simplemde.min.css">
     <link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Description" class="control-label"></label>
-                        <input asp-for="Description" id="description" class="form-control"  placeholder="@Localizer["Description"]" />
+                        <input asp-for="Description" id="description" class="form-control"  />
                         <span asp-validation-for="Description" class="text-danger" id="des_span"></span>
                     </div>
                     <div class="form-group">
@@ -32,6 +32,11 @@
                         <input asp-for="Name" class="form-control" autocomplete="off"
                                placeholder="@Localizer["Name"]" />
                         <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Tags" value="@String.Join("," , Model.Tags)" data-role="tagsinput"
+                               type="text" class="form-control" placeholder="#" />
+                        <span asp-validation-for="Tags" class="text-danger"></span>
                     </div>
                     <div class="form-group" style="width:700px">
                         <label asp-for="Text" class="control-label"></label>

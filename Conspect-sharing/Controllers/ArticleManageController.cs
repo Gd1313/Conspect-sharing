@@ -15,20 +15,25 @@ using Conspect_sharing.Models.ManageViewModels;
 using Conspect_sharing.Services;
 using Conspect_sharing.Models.ViewModels;
 using Conspect_sharing.Services.Repositories;
+using HeyRed.MarkdownSharp;
 
 namespace Conspect_sharing.Controllers
 {
-    public class ArticleManageController : Controller     
+    public class ArticleManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly TagRepository _tagRepository;
         private readonly ArticleRepository _articleRepository;
+        private Search _searchService;
+        private readonly MarkRepository _markRepository;
 
-        public ArticleManageController(UserManager<ApplicationUser> userManager, TagRepository tagRepository, ArticleRepository articleRepository)
+        public ArticleManageController(UserManager<ApplicationUser> userManager, 
+            TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository)
         {
             _userManager = userManager;
             _tagRepository = tagRepository;
             _articleRepository = articleRepository;
+            _markRepository = markRepository;
         }
 
         [Authorize]
@@ -98,7 +103,7 @@ namespace Conspect_sharing.Controllers
                     Description = article.Description,
                     Specialty = article.Specialty,
                     Id = article.Id,
-                    CreatedDate=article.CreatedDate
+                    CreatedDate = article.CreatedDate
                 });
             }
             return View(articleListViews);
@@ -110,19 +115,17 @@ namespace Conspect_sharing.Controllers
             ArticleModel article = _articleRepository.Get(new Guid(id));
             if (article != null)
             {
-                ArticleModel model = new ArticleModel()
+                ArticleData model = new ArticleData()
                 {
                     Text = article.Text,
                     Description = article.Description,
                     Specialty = article.Specialty,
                     Name = article.Name,
-                    UserId =article.UserId,
+                    UserId = article.UserId,
                     Id = article.Id,
                     CreatedDate = article.CreatedDate,
                     LastModifeDate = article.LastModifeDate,
-                    Tags = article.Tags
-
-                    //Tags.Select(t => t.Tag.Title).ToList()
+                    Tags = article.Tags.Select(t => t.Tag.Title).ToList()
                 };
                 return View(model);
             }
@@ -155,55 +158,110 @@ namespace Conspect_sharing.Controllers
             return RedirectPermanent("~/ArticleManage/ArticleTable");
         }
 
-        //public async Task<IActionResult> ArticleRead(Guid id)
-        //{
-        //    ArticleModel article = _articleRepository.Get(id);
-        //    //List<CommentViewModel> commentsViewList = new List<CommentViewModel>();
-        //    //foreach (CommentModel item in article.Comments)
-        //    //{
-        //    //    ApplicationUser user = await _userManager.FindByIdAsync(item.UserId.ToString());
+        public async Task<IActionResult> ArticleRead(Guid id)
+        {
+            ArticleModel article = _articleRepository.Get(id);
+            List<CommentViewModel> commentsViewList = new List<CommentViewModel>();
+            foreach (CommentModel item in article.Comments)
+            {
+                ApplicationUser user = await _userManager.FindByIdAsync(item.UserId.ToString());
 
-        //    //    commentsViewList.Add(new CommentViewModel()
-        //    //    {
-        //    //        Id = item.Id,
-        //    //        Date = item.Date.ToString(),
-        //    //        Comment = item.Comment,
-        //    //        ArticleId = item.ArticleId,
-        //    //        Likes = item.Likes.Count(),
-        //    //        Name = user.Name
-        //    //    });
-        //    //}
-        //    List<CommentViewModel> orderedCommentsViewList =
-        //    commentsViewList
-        //    .OrderByDescending(c => c.Date)
-        //    .ToList();
-        //    Markdown markdown = new Markdown();
-        //    ApplicationUser articleUser =
-        //    await _userManager.FindByIdAsync(article.UserId.ToString());
-        //    ArticleModel viewModel = new ArticleModel()
-        //    {
-        //        Id = article.Id,
-        //        Text = markdown.Transform(article.Text),
-        //        Description = article.Description,
-        //        CreatedDate = article.CreatedDate,
-        //        LastModifeDate = article.LastModifeDate,
-        //        Specialty = article.Specialty,
-        //        UserId = narticle.UserId,
-        //        Name = article.Name,
-        //        Rate = GetAverageRate(article.Marks),
-        //        Comments = orderedCommentsViewList,
-        //        UserName = articleUser.Name,
-        //        Tags = article.Tags.Select(t => t.Tag.Title).ToList()
-        //    };
-        //    var currentUser = await GetCurrentUser();
-        //    if (currentUser != null)
-        //    {
-        //        MarkModel userMark = article.Marks.FirstOrDefault(m => m.UserId == new Guid(currentUser.Id));
-        //        viewModel.IsAvailableRate = currentUser.Id == article.UserId;
-        //    }
-        //    else
-        //        viewModel.IsAvailableRate = true;
-        //    return View(viewModel);
-        //}
+                commentsViewList.Add(new CommentViewModel()
+                {
+                    Id = item.Id,
+                    Date = item.Date.ToString(),
+                    Comment = item.Comment,
+                    ArticleId = item.ArticleId,
+                    Likes = item.Likes.Count(),
+                    Name = user.UserName
+                });
+            }
+            List<CommentViewModel> orderedCommentsViewList =
+            commentsViewList
+            .OrderByDescending(c => c.Date)
+            .ToList();
+            Markdown markdown = new Markdown();
+            ApplicationUser articleUser =
+            await _userManager.FindByIdAsync(article.UserId.ToString());
+            ArticleReadViewModel viewModel = new ArticleReadViewModel()
+            {
+                Id = article.Id,
+                Text = markdown.Transform(article.Text),
+                Description = article.Description,
+                CreatedDate = article.CreatedDate,
+                LastModifeDate = article.LastModifeDate,
+                Specialty = article.Specialty,
+                UserId = article.UserId,
+                Name = article.Name,
+                Rate = GetAverageRate(article.Marks),
+                Comments = orderedCommentsViewList,
+                UserName = articleUser.UserName,
+                Tags = article.Tags.Select(t => t.Tag.Title).ToList()
+            };
+            var currentUser = await GetCurrentUser();
+            if (currentUser != null)
+            {
+                MarkModel userMark = article.Marks.FirstOrDefault(m => m.UserId == new Guid(currentUser.Id));
+                viewModel.IsAvailableRate = currentUser.Id == article.UserId.ToString();
+            }
+            else
+                viewModel.IsAvailableRate = true;
+            return View(viewModel);
+        }
+
+        [NonAction]
+        private double GetAverageRate(List<MarkModel> marks)
+        {
+            double rate = 0;
+            if (marks != null && marks.Count() > 0)
+            {
+                rate = marks.Select(p => p.Value).Average();
+            }
+            return rate;
+        }
+
+        [NonAction]
+        private async Task<ApplicationUser> GetCurrentUser()
+        {
+            if (User.Identity.Name != null)
+            {
+                return await _userManager.FindByNameAsync(User.Identity.Name);
+            }
+            return null;
+        }
+
+        [NonAction]
+        public IActionResult SearchByHashtag(string hashtag)
+        {
+            IEnumerable<ArticleModel> searchResult = _searchService.GetByHashtag(hashtag);
+            List<ArticleListViewModel> articleLists = new List<ArticleListViewModel>();
+            if (searchResult != null)
+            {
+                articleLists = CreateArticleList(searchResult.ToList());
+            }
+            return View("SearchResults", articleLists);
+        }
+
+        [NonAction]
+        public List<ArticleListViewModel> CreateArticleList(List<ArticleModel> articleModels)
+        {
+            List<ArticleListViewModel> articlesLists = new List<ArticleListViewModel>();
+            if (articleModels != null)
+            {
+                foreach (ArticleModel article in articleModels)
+                {
+                    articlesLists.Add(new ArticleListViewModel()
+                    {
+                        Name = article.Name,
+                        Description = article.Description,
+                        Specialty = article.Specialty,
+                        Id = article.Id,
+                        LastModifeDate = article.LastModifeDate,
+                        Rate = GetAverageRate(_markRepository.GetByArticleId(article.Id).ToList())
+                    });
+                }
+            }
+            return articlesLists;
+        }
     }
 }
