@@ -69,7 +69,7 @@
                 <div class="panel comment-input">
                     <div class="panel-body">
                         <textarea class="form-control" rows="2" id="commentFiled"
-                                  placeholder="Добавьте Ваш комментарий"></textarea>
+                                  placeholder="@Localizer["AddYourComment"]"></textarea>
                         <div class="mar-top clearfix">
                             <button id="submitComment" onclick="ProcessComment('@Model.Id')"
                                     style="margin-top:20px;" class="btn btn-sm btn-primary pull-right" type="button">
@@ -111,7 +111,7 @@
 </div>
 
 @section Scripts{
-    <script src="~/lib/editor/editor.js"></script>
+    <script src="~/js/editor.js"></script>
     <script>
     @*$("#rateId").rateYo({
         rating: @Model.Rate.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")),
@@ -161,6 +161,46 @@
                 }
 
                 document.body.removeChild(downloadLink);
+        }
+
+        var hubUrl = '/chat';
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(hubUrl)
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        hubConnection.on('SendComment', function (data) {
+            let HTMLstring =
+                ` <div><div class="media-block" >
+            <div class="media-body">
+                <div class="mar-btm">
+                    <span class=" text-semibold media-heading box-inline comment-Name">  ${data.name}</span>
+                    <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - ${data.date}</span>
+                </div>
+                <br />
+                <p>  ${data.comment}</p>
+                <div class="pad-ver">
+                    <span class=" tag-sm"><i class="fa fa-heart text-danger" ></i> ${data.likes} </span>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-default btn-hover-success active" id="like" onclick="ProcessLike('${data.Id}')">
+                            <i class="fa fa-thumbs-up" ></i>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+       </div> </div>`;
+            $("#Comments_" + data.articleId).prepend(HTMLstring);
+        });
+
+        hubConnection.start();
+
+        function ProcessComment(id) {
+            var text = $('#commentFiled').val();
+            if (text != null && text != "") {
+                $('#commentFiled').val("");
+                sendRequest("/ArticleManageController/SetComment", { articleId: id, text: text });
             }
+        }
         </script>
         }

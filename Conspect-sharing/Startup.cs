@@ -84,7 +84,18 @@ namespace Conspect_sharing
                 options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
-            
+
+            services.AddTransient<ArticleRepository>();
+            services.AddTransient<ArticleTagRepository>();
+            services.AddTransient<ComentRepository>();
+            services.AddTransient<LikeRepository>();
+            services.AddTransient<MarkRepository>();
+            services.AddTransient<TagRepository>();
+            services.AddTransient<SearchRepository>();
+            services.AddTransient<Search>();
+
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

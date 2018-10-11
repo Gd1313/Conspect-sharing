@@ -16,6 +16,7 @@ using Conspect_sharing.Services;
 using Conspect_sharing.Models.ViewModels;
 using Conspect_sharing.Services.Repositories;
 using HeyRed.MarkdownSharp;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Conspect_sharing.Controllers
 {
@@ -26,14 +27,16 @@ namespace Conspect_sharing.Controllers
         private readonly ArticleRepository _articleRepository;
         private Search _searchService;
         private readonly MarkRepository _markRepository;
+        private readonly IHubContext<ChatHub> _hubContext;
 
         public ArticleManageController(UserManager<ApplicationUser> userManager, 
-            TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository)
+            TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository, IHubContext<ChatHub> hubContext)
         {
             _userManager = userManager;
             _tagRepository = tagRepository;
             _articleRepository = articleRepository;
             _markRepository = markRepository;
+            _hubContext = hubContext;
         }
 
         [Authorize]
@@ -262,6 +265,42 @@ namespace Conspect_sharing.Controllers
                 }
             }
             return articlesLists;
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task SetComment(string articleId, string text)
+        {
+            var userId = (await GetCurrentUser()).Id;
+            CommentModel comment = new CommentModel()
+            {
+                Comment = text,
+                Date = DateTime.Now,
+                ArticleId = new Guid(articleId),
+                UserId = new Guid(userId)
+            };
+            ArticleModel article = _articleRepository.Get(new Guid(articleId));
+            article.Comments.Add(comment);
+            _articleRepository.Update(article);
+            await SendComment(comment);
+        }
+
+        [NonAction]
+        private async Task SendComment(CommentModel comment)
+        {
+            ApplicationUser user = await _userManager
+                .FindByIdAsync(comment.UserId.ToString());
+            CommentViewModel commentForSend = new CommentViewModel()
+            {
+                Comment = comment.Comment,
+                Date = comment.Date.ToString(),
+                ArticleId = comment.ArticleId,
+                Name = user.UserName,
+                Likes = 0
+            };
+            await _hubContext.Clients
+                .All
+                .SendAsync("SendComment", commentForSend);
         }
     }
 }
