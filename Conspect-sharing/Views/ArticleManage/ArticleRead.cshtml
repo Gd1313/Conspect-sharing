@@ -199,8 +199,21 @@
             var text = $('#commentFiled').val();
             if (text != null && text != "") {
                 $('#commentFiled').val("");
-                sendRequest("/ArticleManageController/SetComment", { articleId: id, text: text });
+                sendRequest("/ArticleManage/SetComment", { articleId: id, text: text });
             }
+        }
+
+        function sendRequest(url, data, callback) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (data) {
+                    if (callback != null) {
+                        callback(data);
+                    }
+                }
+            });
         }
         </script>
         }

@@ -25,5 +25,6 @@ namespace Conspect_sharing.Models.ViewModels
         public List<CommentModel> Comments { get; set; }
         public List<string> Tags { get; set; }
         public List<MarkModel> Marks { get; set; }
+        public string UserName { get; set; }
     }
 }

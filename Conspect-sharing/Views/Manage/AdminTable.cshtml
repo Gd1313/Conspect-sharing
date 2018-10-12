@@ -23,18 +23,14 @@
 
             <tr>
                 <th>Выбрать пользователя</th>
-                @*<th><input type="checkbox" id="select_all"></th>*@
 
                 <th>
-                    @*@Html.DisplayNameFor(model => model.UserName)*@
                     Пользователь
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Role)*@
                     Роль
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Status)*@
                     Статус
                 </th>
 
@@ -49,7 +45,7 @@
                         <input class="checkbox" type="checkbox" name="statuses" value="@item.UserName">
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
+                        @Html.ActionLink(item.UserName, "Index", "ArticleManage", new { userId = item.UserId })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Role)

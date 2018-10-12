@@ -517,7 +517,8 @@ namespace Conspect_sharing.Controllers
                 {
                     UserName = item.UserName,
                     Status = item.LockoutEnabled,
-                    Role = await GetRole(item) 
+                    Role = await GetRole(item),
+                    UserId = new Guid(item.Id)
                 });
 
             }
@@ -613,25 +614,6 @@ namespace Conspect_sharing.Controllers
             return true;
         }
      
-        //public IActionResult Article()
-        //{
-        //    var model = new ArticleData()  ;
-        //    return View(model);
-        //}
-
-       
-
-      
-      
-
-        public async Task  ChangeUserName(string value)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var current_user= await _userManager.FindByIdAsync(user.Id);
-            current_user.UserName = value;
-            await _userManager.UpdateAsync(current_user);
-        }
-
         public IActionResult ViewArticle()
         {
             var model = new ArticleData();

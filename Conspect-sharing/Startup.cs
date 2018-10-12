@@ -18,6 +18,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Options;
 using Conspect_sharing.Services.Repositories;
+using Conspect_sharing.Models.ViewModels;
 
 namespace Conspect_sharing
 {
@@ -124,6 +125,10 @@ namespace Conspect_sharing
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chat");
             });
         }
     }

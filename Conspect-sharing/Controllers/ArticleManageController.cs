@@ -40,14 +40,19 @@ namespace Conspect_sharing.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(string userId)
+        public async Task<IActionResult> Index(string userId)
         {
-            return View();
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            var username = await _userManager.GetUserNameAsync(user);
+            var model = new ArticleData() { UserId = new Guid(userId), UserName = username.ToString() };
+            return View(model);
         }
         [Authorize]
         public IActionResult Article(string userId)
         {
-            var model = new ArticleData() { UserId = new Guid(userId) };
+  
+            var model = new ArticleData() { UserId = new Guid(userId)};
+         
             return View(model);
         }
 
@@ -92,10 +97,10 @@ namespace Conspect_sharing.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ArticleTable()
+        public async Task<IActionResult> ArticleTable(string userId)
         {
             List<ArticleListViewModel> articleListViews = new List<ArticleListViewModel>();
-            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var currentUser = await _userManager.FindByIdAsync(userId);
             List<ArticleModel> articles;
             articles = _articleRepository.GetUserArticle(new Guid(currentUser.Id)).ToList();
             foreach (ArticleModel article in articles)
@@ -301,6 +306,17 @@ namespace Conspect_sharing.Controllers
             await _hubContext.Clients
                 .All
                 .SendAsync("SendComment", commentForSend);
+        }
+
+        [Authorize]
+        public async Task ChangeUserName(string pk, string value)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(pk);
+            if (user != null)
+            {
+                user.UserName = value;
+                await _userManager.UpdateAsync(user);
+            }
         }
     }
 }
