@@ -13,7 +13,7 @@
         </a>
     </li>
     <li><a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="Article">@Localizer["Create"]</a></li>
-    <li><a asp-area="" asp-controller="ArticleManage" asp-action="ArticleTable">@Localizer["ArticleTable"]</a></li>
+    <li><a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="ArticleTable">@Localizer["ArticleTable"]</a></li>
 </ul>
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="~/js/site.js"></script>
