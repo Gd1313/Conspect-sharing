@@ -28,15 +28,20 @@ namespace Conspect_sharing.Controllers
         private Search _searchService;
         private readonly MarkRepository _markRepository;
         private readonly IHubContext<ChatHub> _hubContext;
+        private readonly ComentRepository _comentRepository;
+        private readonly LikeRepository _likeRepository;
 
         public ArticleManageController(UserManager<ApplicationUser> userManager, 
-            TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository, IHubContext<ChatHub> hubContext)
+            TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository, IHubContext<ChatHub> hubContext
+            , ComentRepository comentRepository, LikeRepository likeRepository)
         {
             _userManager = userManager;
             _tagRepository = tagRepository;
             _articleRepository = articleRepository;
             _markRepository = markRepository;
             _hubContext = hubContext;
+            _comentRepository = comentRepository;
+            _likeRepository = likeRepository;
         }
 
         [Authorize]
@@ -317,6 +322,57 @@ namespace Conspect_sharing.Controllers
                 user.UserName = value;
                 await _userManager.UpdateAsync(user);
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<object> SetLikeToComment(string id)
+        {
+            var userId = (await GetCurrentUser()).Id;
+            CommentModel comment = _comentRepository.Get(new Guid(id));
+            LikeModel likeToThisComment = comment.Likes
+                .FirstOrDefault(l => l.UserId == new Guid(userId));
+            if (likeToThisComment == null )
+            {
+                LikeModel like = new LikeModel()
+                {
+                    CommentId = new Guid(id),
+                    UserId = new Guid(userId)
+                };
+                comment.Likes.Add(like);
+                _likeRepository.Update(like);
+                return new { Success = true, Id = id, Likes = comment.Likes.Count() };
+            }
+            return new { Success = false, Id = id };
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task SetRate(string articleId, int rate)
+        {
+            int doubleRate = rate;
+            var userId = (await GetCurrentUser()).Id;
+            ArticleModel article = _articleRepository.Get(new Guid(articleId));
+            MarkModel userMark = article.Marks
+                .FirstOrDefault(m => m.UserId == new Guid(userId));
+          
+                if (userMark != null)
+                {
+                    userMark.Value = rate;
+                    _markRepository.Update(userMark);
+                }
+                else
+                {
+                    MarkModel newMark = new MarkModel()
+                    {
+                        UserId = new Guid(userId),
+                        ArticleId = new Guid(articleId),
+                        Value = doubleRate
+                    };
+                    article.Marks.Add(newMark);
+                    _articleRepository.Update(article);
+                }
+            
         }
     }
 }

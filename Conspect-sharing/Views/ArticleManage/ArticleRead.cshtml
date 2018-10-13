@@ -1,5 +1,10 @@
 ﻿@model Conspect_sharing.Models.ViewModels.ArticleReadViewModel
 
+<head>
+    <link rel="stylesheet" href="~/css/stars.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+</head>
+
 <div class="container">
     <div class="readArticle">
         <div id="name">
@@ -24,6 +29,10 @@
                 @Localizer["LastModifeDate"]
                 <span class="article-info">@Html.DisplayFor(model => model.LastModifeDate)</span>
             </div>
+            <div id="rate" style="margin-left:75%; margin-bottom:10px;">
+                @Localizer["Rate"]
+                <span class="article-info">@Html.DisplayFor(model => model.Rate)</span>
+            </div>
         </div>
 
 
@@ -31,36 +40,56 @@
         <div id="exportContent" class="pre-scrolable ">
             @Html.Raw(Model.Text)
         </div>
-
-        <div class="article-rate">
-            <div id="rateId" data-value="@Model.Id"></div>
+ 
+        <div class='rating-stars text-center'>
+            <ul id='stars' onclick="SetRate('@Model.Id')">
+                <li class='star' title='1' data-value='1'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='2' data-value='2'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='3' data-value='3'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='4' data-value='4'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='5' data-value='5'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+            </ul>
         </div>
-        <div id="tags">
-            @if (Model.Tags != null)
-            {
-                @Localizer["Tags"]
-                <p>
-                    @foreach (var teg in Model.Tags)
-                    {
-                        <a class="tag label label-primary"
-                           href='@Url.Action("SearchByHashtag","Home",new { hashtag=teg })'>@teg</a>
-                    }
-                </p>
-            }
-        </div>
-
-        <div>
-            <label> @Localizer["Download"]</label>
-            <br />
-            <button type="button" style="margin-top:12px;" class="btn btn-default btn-sm"
-                    onclick="Export2Doc('exportContent','@Model.UserName');">
-                <span class="glyphicon glyphicon-download-alt"></span>
-            </button>
-        </div>
-
 
 
     </div>
+
+    <div id="tags">
+        @if (Model.Tags != null)
+        {
+            @Localizer["Tags"]
+            <p>
+                @foreach (var teg in Model.Tags)
+                {
+                    <a class="tag label label-primary"
+                       href='@Url.Action("SearchByHashtag","Home",new { hashtag=teg })'>@teg</a>
+                }
+            </p>
+        }
+    </div>
+
+    <div>
+        <label> @Localizer["Download"]</label>
+        <br />
+        <button type="button" style="margin-top:12px;" class="btn btn-default btn-sm"
+                onclick="Export2Doc('exportContent','@Model.UserName');">
+            <span class="glyphicon glyphicon-download-alt"></span>
+        </button>
+    </div>
+
+
+
+</div>
  
     <H3> @Localizer["Comments"]</H3>
     <section class="container">
@@ -82,26 +111,29 @@
                     <div class="panel-body" id="Comments_@Model.Id">
                         @foreach (var i in Model.Comments)
                         {
-                            <div class="media-block">
-                                <div class="media-body">
-                                    <div class="mar-btm">
-                                        <span class=" text-semibold media-heading box-inline comment-Name">@i.Name</span>
-                                        <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - @i.Date</span>
-                                    </div>
-                                    <br />
-                                    <p>  @i.Comment</p>
-                                    <div class="pad-ver">
-                                        <span class=" tag-sm"><i class="fa fa-heart text-danger"></i> @i.Likes </span>
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-default btn-hover-success active"
-                                                    id="like" onclick="ProcessLike('@i.Id')">
-                                                <i class="fa fa-thumbs-up"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <hr>
+                        <div class="media-block">
+                            <div class="media-body">
+                                <div class="mar-btm">
+                                    <span class=" text-semibold media-heading box-inline comment-Name">@i.Name</span>
+                                    <span class="text-muted text-sm"> - @i.Date</span>
                                 </div>
+                                <br />
+                                <p name="comment">  @i.Comment</p>
+                                <div class="pad-ver">
+                                    <span class="tag-sm">
+                                        <i class="glyphicon glyphicon-fire " style="color:#ffa500;"></i>
+                                        <span id="likes_@i.Id">@i.Likes</span>
+                                    </span>
+                                    <div class="btn-group" style="float:right;display:block;">
+                                        <button class="btn btn-sm btn-default btn-hover-success active"
+                                                id="like" onclick="ProcessLike('@i.Id')">
+                                            <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
+                        </div>
                         }
                     </div>
                 </div>
@@ -111,56 +143,42 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/editor.js"></script>
     <script>
-    @*$("#rateId").rateYo({
-        rating: @Model.Rate.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")),
-        starWidth: "20px",
-        readOnly: @Model.IsAvailableRate.ToString().ToLower()
-    });
-    $("#rateId").rateYo()
-        .on("rateyo.set", function (e, data) {
-            ProcessRate($("#rateId").data("value"), data.rating);
-        });*@
-/**/
+        function Export2Doc(element, filename = '') {
+            var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+            var postHtml = "</body></html>";
+            var html = preHtml + document.getElementById(element).innerHTML + postHtml;
 
-            function Export2Doc(element, filename = '') {
-                var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-                var postHtml = "</body></html>";
-                var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+            var blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
 
-                var blob = new Blob(['\ufeff', html], {
-                    type: 'application/msword'
-                });
+            // Specify link url
+            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
 
-                // Specify link url
-                var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+            // Specify file name
+            filename = filename ? filename + '.doc' : 'document.doc';
 
-                // Specify file name
-                filename = filename ? filename + '.doc' : 'document.doc';
+            // Create download link element
+            var downloadLink = document.createElement("a");
 
-                // Create download link element
-                var downloadLink = document.createElement("a");
+            document.body.appendChild(downloadLink);
 
-                document.body.appendChild(downloadLink);
+            if (navigator.msSaveOrOpenBlob) {
+                navigator.msSaveOrOpenBlob(blob, filename);
+            }
+            else {
+                // Create a link to the file
+                downloadLink.href = url;
 
-                if (navigator.msSaveOrOpenBlob)
-                {
-                    navigator.msSaveOrOpenBlob(blob, filename);
-                }
-                else
-                {
-                    // Create a link to the file
-                    downloadLink.href = url;
+                // Setting the file name
+                downloadLink.download = filename;
 
-                    // Setting the file name
-                    downloadLink.download = filename;
+                //triggering the function
+                downloadLink.click();
+            }
 
-                    //triggering the function
-                    downloadLink.click();
-                }
-
-                document.body.removeChild(downloadLink);
+            document.body.removeChild(downloadLink);
         }
 
         var hubUrl = '/chat';
@@ -171,19 +189,20 @@
 
         hubConnection.on('SendComment', function (data) {
             let HTMLstring =
-                ` <div><div class="media-block" >
+                `<div><div class="media-block" >
             <div class="media-body">
                 <div class="mar-btm">
                     <span class=" text-semibold media-heading box-inline comment-Name">  ${data.name}</span>
                     <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - ${data.date}</span>
                 </div>
                 <br />
-                <p>  ${data.comment}</p>
+                <p name="comment">  </p>
                 <div class="pad-ver">
-                    <span class=" tag-sm"><i class="fa fa-heart text-danger" ></i> ${data.likes} </span>
-                    <div class="btn-group">
-                        <button class="btn btn-sm btn-default btn-hover-success active" id="like" onclick="ProcessLike('${data.Id}')">
-                            <i class="fa fa-thumbs-up" ></i>
+                    <span class=" tag-sm"><i class="glyphicon glyphicon-fire " style="color:#ffa500;" ></i>
+                    <span id="likes_${data.id}">${data.likes}</span> </span>
+                    <div class="btn-group" style="float:right;" >
+                        <button class="btn btn-sm btn-default btn-hover-success active" id="like" onclick="ProcessLike('${data.id}')">
+                            <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;" ></i>
                         </button>
                     </div>
                 </div>
@@ -191,29 +210,83 @@
             </div>
        </div> </div>`;
             $("#Comments_" + data.articleId).prepend(HTMLstring);
-        });
+            document.getElementsByName('comment')[0].innerText = data.comment;
+            });
 
-        hubConnection.start();
+            hubConnection.start();
 
-        function ProcessComment(id) {
-            var text = $('#commentFiled').val();
-            if (text != null && text != "") {
-                $('#commentFiled').val("");
-                sendRequest("/ArticleManage/SetComment", { articleId: id, text: text });
-            }
-        }
-
-        function sendRequest(url, data, callback) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                success: function (data) {
-                    if (callback != null) {
-                        callback(data);
-                    }
+            function ProcessComment(id) {
+                var text = $('#commentFiled').val();
+                if (text != null && text != "") {
+                    $('#commentFiled').val("");
+                    sendRequest("/ArticleManage/SetComment", { articleId: id, text: text });
                 }
+            }
+
+            function sendRequest(url, data, callback) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        if (callback != null) {
+                            callback(data);
+                        }
+                    }
+                });
+            }
+
+            function ProcessLike(id) {
+                sendRequest("/ArticleManage/SetLikeToComment", { id: id }, function (data) {
+                    if (data.success) {
+                        $('#likes_' + data.id).text(`${data.likes}`)
+                    }
+                });
+        }
+        function SetRate(id) {
+            $(document).ready(function () {
+
+                /* 1. Visualizing things on Hover - See next part for action on click */
+                $('#stars li').on('mouseover', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                    // Now highlight all the stars that's not after the current hovered star
+                    $(this).parent().children('li.star').each(function (e) {
+                        if (e < onStar) {
+                            $(this).addClass('hover');
+                        }
+                        else {
+                            $(this).removeClass('hover');
+                        }
+                    });
+
+                }).on('mouseout', function () {
+                    $(this).parent().children('li.star').each(function (e) {
+                        $(this).removeClass('hover');
+                    });
+                });
+
+
+                /* 2. Action to perform on click */
+                $('#stars li').on('click', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                    var stars = $(this).parent().children('li.star');
+
+                    for (i = 0; i < stars.length; i++) {
+                        $(stars[i]).removeClass('selected');
+                    }
+
+                    for (i = 0; i < onStar; i++) {
+                        $(stars[i]).addClass('selected');
+                    }
+
+                    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+
+                    sendRequest("/ArticleManage/SetRate", { articleId: id, rate: ratingValue });
+
+                });
             });
         }
-        </script>
+           
+    </script>
         }

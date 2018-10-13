@@ -138,6 +138,9 @@
   <data name="LastModifeDate" xml:space="preserve">
     <value>Дата последнего редактирования</value>
   </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Средний рейтинг</value>
+  </data>
   <data name="Speciality" xml:space="preserve">
     <value>Специальность</value>
   </data>
