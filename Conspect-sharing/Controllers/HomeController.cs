@@ -10,26 +10,58 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using Conspect_sharing.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Conspect_sharing.Services.Repositories;
+using Conspect_sharing.Models.HomeViewModels;
 
 namespace Conspect_sharing.Controllers
 {
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ArticleRepository _articleRepository;
 
-        public HomeController(UserManager<ApplicationUser> userManager)
+        public HomeController(UserManager<ApplicationUser> userManager, ArticleRepository articleRepository)
         {
             _userManager = userManager;
+            _articleRepository = articleRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
-            var user = await _userManager.GetUserAsync(User); if (user!=null)
+            int pageSize = 10;
+            IQueryable<ArticleModel> source = _articleRepository.applicationDbContext.Articles;
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel();
+            var user = await _userManager.GetUserAsync(User);
+            if (user!=null)
             {
-                ArticleData model = new ArticleData() { UserId = new Guid(user.Id)};
-                return View(model);
+                viewModel = new IndexViewModel
+                {
+                    UserId = new Guid(user.Id),
+                    PageViewModel = pageViewModel,
+                    Articles = items
+                };
+
+                return View(viewModel);
             }
-            return View();
+
+         
+
+            source = _articleRepository.applicationDbContext.Articles;
+            count = source.Count();
+            items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            pageViewModel = new PageViewModel(count, page, pageSize);
+
+            viewModel = new IndexViewModel
+            {   
+                PageViewModel = pageViewModel,
+                Articles = items
+            };
+
+            return View(viewModel);
 
         }
 

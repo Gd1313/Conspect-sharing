@@ -458,6 +458,7 @@ namespace Conspect_sharing.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> SetLanguage(string culture,string returnUrl)
         {
 

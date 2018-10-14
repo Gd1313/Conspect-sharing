@@ -1,4 +1,5 @@
 ﻿@model Conspect_sharing.Models.ViewModels.ArticleReadViewModel
+@inject SignInManager<ApplicationUser> SignInManager
 
 <head>
     <link rel="stylesheet" href="~/css/stars.css">
@@ -29,44 +30,52 @@
                 @Localizer["LastModifeDate"]
                 <span class="article-info">@Html.DisplayFor(model => model.LastModifeDate)</span>
             </div>
-            <div id="rate" style="margin-left:75%; margin-bottom:10px;">
-                @Localizer["Rate"]
-                <span class="article-info">@Html.DisplayFor(model => model.Rate)</span>
-            </div>
-            <div id="rate" style="margin-left:75%; margin-bottom:10px;">
-                @Localizer["YourRate"]
-                <span class="article-info" id="userMark">@Html.DisplayFor(model => model.YourMark)</span>
-            </div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div id="rate" style="margin-left:75%; margin-bottom:10px;">
+                    @Localizer["Rate"]
+                    <span class="article-info">@Html.DisplayFor(model => model.Rate)</span>
+                </div>
+            }
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div id="rate" style="margin-left:75%; margin-bottom:10px;">
+                    @Localizer["YourRate"]
+                    <span class="article-info" id="userMark">@Html.DisplayFor(model => model.YourMark)</span>
+                </div>
+            }
         </div>
+
 
 
 
         <div id="exportContent" class="pre-scrolable ">
             @Html.Raw(Model.Text)
         </div>
- 
-        <div class='rating-stars text-center'>
-            <ul id='stars' onclick="SetRate('@Model.Id')">
-                <li class='star' title='1' data-value='1'>
-                    <i class='fa fa-star fa-fw'></i>
-                </li>
-                <li class='star' title='2' data-value='2'>
-                    <i class='fa fa-star fa-fw'></i>
-                </li>
-                <li class='star' title='3' data-value='3'>
-                    <i class='fa fa-star fa-fw'></i>
-                </li>
-                <li class='star' title='4' data-value='4'>
-                    <i class='fa fa-star fa-fw'></i>
-                </li>
-                <li class='star' title='5' data-value='5'>
-                    <i class='fa fa-star fa-fw'></i>
-                </li>
-            </ul>
-        </div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class='rating-stars text-center'>
+                <ul id='stars' onclick="SetRate('@Model.Id')">
+                    <li class='star' title='1' data-value='1'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='2' data-value='2'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='3' data-value='3'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='4' data-value='4'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='5' data-value='5'>
+                        <i class='fa fa-star fa-fw'></i>
+                    </li>
+                </ul>
+            </div>
 
-
-    </div>
+        }
+   </div>
 
     <div id="tags">
         @if (Model.Tags != null)
@@ -76,7 +85,10 @@
                 @foreach (var teg in Model.Tags)
                 {
                     <a class="tag label label-primary"
-                       href='@Url.Action("SearchByHashtag","Home",new { hashtag=teg })'>@teg</a>
+                       href='@Url.Action("SearchByHashtag","ArticleManage",new { hashtag=teg })'>@teg</a>
+                    @*<a class="tag label label-primary" asp-controller="ArticleManage" asp-route-hashtag="teg" asp-action="SearchByHashtag">
+                            @teg
+                        </a>*@
                 }
             </p>
         }
@@ -94,12 +106,15 @@
 
 
 </div>
- 
-    <H3> @Localizer["Comments"]</H3>
-    <section class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel comment-input">
+
+<H3> @Localizer["Comments"]</H3>
+<section class="container">
+    <div class="row">
+        <div class="col-md-12">
+        
+            <div class="panel comment-input">
+                @if (SignInManager.IsSignedIn(User))
+                {
                     <div class="panel-body">
                         <textarea class="form-control" rows="2" id="commentFiled"
                                   placeholder="@Localizer["AddYourComment"]"></textarea>
@@ -109,41 +124,45 @@
                                 <i class="fa fa-pencil fa-fw"></i> @Localizer["AddComment"]
                             </button>
                         </div>
-                    </div>
-                </div>
+                    </div>}
+            </div>
+         
                 <div class="panel comment-list">
                     <div class="panel-body" id="Comments_@Model.Id">
                         @foreach (var i in Model.Comments)
                         {
-                        <div class="media-block">
-                            <div class="media-body">
-                                <div class="mar-btm">
-                                    <span class=" text-semibold media-heading box-inline comment-Name">@i.Name</span>
-                                    <span class="text-muted text-sm"> - @i.Date</span>
-                                </div>
-                                <br />
-                                <p name="comment">  @i.Comment</p>
-                                <div class="pad-ver">
-                                    <span class="tag-sm">
-                                        <i class="glyphicon glyphicon-fire " style="color:#ffa500;"></i>
-                                        <span id="likes_@i.Id">@i.Likes</span>
-                                    </span>
-                                    <div class="btn-group" style="float:right;display:block;">
-                                        <button class="btn btn-sm btn-default btn-hover-success active"
-                                                id="like" onclick="ProcessLike('@i.Id')">
-                                            <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;"></i>
-                                        </button>
+                            <div class="media-block">
+                                <div class="media-body">
+                                    <div class="mar-btm">
+                                        <span class=" text-semibold media-heading box-inline comment-Name">@i.Name</span>
+                                        <span class="text-muted text-sm"> - @i.Date</span>
                                     </div>
+                                    <br />
+                                    <p name="comment">  @i.Comment</p>
+                                    <div class="pad-ver">
+                                        <span class="tag-sm">
+                                            <i class="glyphicon glyphicon-fire " style="color:#ffa500;"></i>
+                                            <span id="likes_@i.Id">@i.Likes</span>
+                                        </span>
+                                        <div class="btn-group" style="float:right;display:block;">
+                                            @if (SignInManager.IsSignedIn(User))
+                                            {
+                                                <button class="btn btn-sm btn-default btn-hover-success active"
+                                                        id="like" onclick="ProcessLike('@i.Id')">
+                                                    <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;"></i>
+                                                </button>
+                                            }
+                                            </div>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <hr>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+    </div>
+</section>
 </div>
 
 @section Scripts{
@@ -194,58 +213,58 @@
         hubConnection.on('SendComment', function (data) {
             let HTMLstring =
                 `<div><div class="media-block" >
-            <div class="media-body">
-                <div class="mar-btm">
-                    <span class=" text-semibold media-heading box-inline comment-Name">  ${data.name}</span>
-                    <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - ${data.date}</span>
-                </div>
-                <br />
-                <p name="comment">  </p>
-                <div class="pad-ver">
-                    <span class=" tag-sm"><i class="glyphicon glyphicon-fire " style="color:#ffa500;" ></i>
-                    <span id="likes_${data.id}">${data.likes}</span> </span>
-                    <div class="btn-group" style="float:right;" >
-                        <button class="btn btn-sm btn-default btn-hover-success active" id="like" onclick="ProcessLike('${data.id}')">
-                            <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;" ></i>
-                        </button>
+                <div class="media-body">
+                    <div class="mar-btm">
+                        <span class=" text-semibold media-heading box-inline comment-Name">  ${data.name}</span>
+                        <span class="text-muted text-sm"><i class="fa  fa-lg"></i> - ${data.date}</span>
                     </div>
+                    <br />
+                    <p name="comment">  </p>
+                    <div class="pad-ver">
+                        <span class=" tag-sm"><i class="glyphicon glyphicon-fire " style="color:#ffa500;" ></i>
+                        <span id="likes_${data.id}">${data.likes}</span> </span>
+                        <div class="btn-group" style="float:right;" >
+                            <button class="btn btn-sm btn-default btn-hover-success active" id="like" onclick="ProcessLike('${data.id}')">
+                                <i class="glyphicon glyphicon-heart-empty" style="color:#27aeb9;" ></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
-       </div> </div>`;
+           </div> </div>`;
             $("#Comments_" + data.articleId).prepend(HTMLstring);
             document.getElementsByName('comment')[0].innerText = data.comment;
-            });
+        });
 
-            hubConnection.start();
+        hubConnection.start();
 
-            function ProcessComment(id) {
-                var text = $('#commentFiled').val();
-                if (text != null && text != "") {
-                    $('#commentFiled').val("");
-                    sendRequest("/ArticleManage/SetComment", { articleId: id, text: text });
+        function ProcessComment(id) {
+            var text = $('#commentFiled').val();
+            if (text != null && text != "") {
+                $('#commentFiled').val("");
+                sendRequest("/ArticleManage/SetComment", { articleId: id, text: text });
+            }
+        }
+
+        function sendRequest(url, data, callback) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (data) {
+                    if (callback != null) {
+                        callback(data);
+                    }
                 }
-            }
+            });
+        }
 
-            function sendRequest(url, data, callback) {
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: data,
-                    success: function (data) {
-                        if (callback != null) {
-                            callback(data);
-                        }
-                    }
-                });
-            }
-
-            function ProcessLike(id) {
-                sendRequest("/ArticleManage/SetLikeToComment", { id: id }, function (data) {
-                    if (data.success) {
-                        $('#likes_' + data.id).text(`${data.likes}`)
-                    }
-                });
+        function ProcessLike(id) {
+            sendRequest("/ArticleManage/SetLikeToComment", { id: id }, function (data) {
+                if (data.success) {
+                    $('#likes_' + data.id).text(`${data.likes}`)
+                }
+            });
         }
         function SetRate(id) {
             $(document).ready(function () {
@@ -289,11 +308,11 @@
                     sendRequest("/ArticleManage/SetRate", { articleId: id, rate: ratingValue });
 
                     var mark = document.getElementById("userMark");
-                    mark.innerHTML  = ratingValue;
+                    mark.innerHTML = ratingValue;
 
                 });
             });
         }
-           
+
     </script>
-        }
+}

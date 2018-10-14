@@ -23,6 +23,7 @@ namespace Conspect_sharing.Controllers
     public class ArticleManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly TagRepository _tagRepository;
         private readonly ArticleRepository _articleRepository;
         private Search _searchService;
@@ -33,7 +34,7 @@ namespace Conspect_sharing.Controllers
 
         public ArticleManageController(UserManager<ApplicationUser> userManager, 
             TagRepository tagRepository, ArticleRepository articleRepository, MarkRepository markRepository, IHubContext<ChatHub> hubContext
-            , ComentRepository comentRepository, LikeRepository likeRepository)
+            , ComentRepository comentRepository, LikeRepository likeRepository, Search search, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _tagRepository = tagRepository;
@@ -42,6 +43,8 @@ namespace Conspect_sharing.Controllers
             _hubContext = hubContext;
             _comentRepository = comentRepository;
             _likeRepository = likeRepository;
+            _searchService = search;
+            _signInManager = signInManager;
         }
 
         [Authorize]
@@ -198,14 +201,22 @@ namespace Conspect_sharing.Controllers
             await _userManager.FindByIdAsync(article.UserId.ToString());
             var currentUser = await GetCurrentUser();
             int mark=0;
-            if (article.Marks.FirstOrDefault(x => x.UserId == new Guid(currentUser.Id)) == null)
+            if (_signInManager.IsSignedIn(User)==false)
             {
-                   mark = 0;
+                mark = 0;
             }
             else
             {
-                mark = article.Marks.First(m => m.UserId == new Guid(currentUser.Id)).Value;
+                if (article.Marks.FirstOrDefault(x => x.UserId == new Guid(currentUser.Id)) == null)
+                {
+                    mark = 0;
+                }
+                else
+                {
+                    mark = article.Marks.First(m => m.UserId == new Guid(currentUser.Id)).Value;
+                }
             }
+           
             ArticleReadViewModel viewModel = new ArticleReadViewModel()
             {
                 Id = article.Id,
@@ -254,7 +265,7 @@ namespace Conspect_sharing.Controllers
             return null;
         }
 
-        [NonAction]
+    
         public IActionResult SearchByHashtag(string hashtag)
         {
             IEnumerable<ArticleModel> searchResult = _searchService.GetByHashtag(hashtag);
@@ -317,7 +328,8 @@ namespace Conspect_sharing.Controllers
                 Date = comment.Date.ToString(),
                 ArticleId = comment.ArticleId,
                 Name = user.UserName,
-                Likes = 0
+                Likes = 0,
+                Id = comment.Id
             };
             await _hubContext.Clients
                 .All

@@ -10,7 +10,7 @@ namespace Conspect_sharing.Services.Repositories
 {
     public class ArticleRepository
     {
-        ApplicationDbContext applicationDbContext { get; set; }
+        public  ApplicationDbContext applicationDbContext { get; set; }
 
         public ArticleRepository(ApplicationDbContext applicationDbContext)
         {
