@@ -196,6 +196,16 @@ namespace Conspect_sharing.Controllers
             Markdown markdown = new Markdown();
             ApplicationUser articleUser =
             await _userManager.FindByIdAsync(article.UserId.ToString());
+            var currentUser = await GetCurrentUser();
+            int mark=0;
+            if (article.Marks.FirstOrDefault(x => x.UserId == new Guid(currentUser.Id)) == null)
+            {
+                   mark = 0;
+            }
+            else
+            {
+                mark = article.Marks.First(m => m.UserId == new Guid(currentUser.Id)).Value;
+            }
             ArticleReadViewModel viewModel = new ArticleReadViewModel()
             {
                 Id = article.Id,
@@ -209,9 +219,10 @@ namespace Conspect_sharing.Controllers
                 Rate = GetAverageRate(article.Marks),
                 Comments = orderedCommentsViewList,
                 UserName = articleUser.UserName,
-                Tags = article.Tags.Select(t => t.Tag.Title).ToList()
+                Tags = article.Tags.Select(t => t.Tag.Title).ToList(),
+                YourMark= mark
             };
-            var currentUser = await GetCurrentUser();
+
             if (currentUser != null)
             {
                 MarkModel userMark = article.Marks.FirstOrDefault(m => m.UserId == new Guid(currentUser.Id));

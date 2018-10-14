@@ -33,6 +33,10 @@
                 @Localizer["Rate"]
                 <span class="article-info">@Html.DisplayFor(model => model.Rate)</span>
             </div>
+            <div id="rate" style="margin-left:75%; margin-bottom:10px;">
+                @Localizer["YourRate"]
+                <span class="article-info" id="userMark">@Html.DisplayFor(model => model.YourMark)</span>
+            </div>
         </div>
 
 
@@ -283,6 +287,9 @@
                     var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
 
                     sendRequest("/ArticleManage/SetRate", { articleId: id, rate: ratingValue });
+
+                    var mark = document.getElementById("userMark");
+                    mark.innerHTML  = ratingValue;
 
                 });
             });

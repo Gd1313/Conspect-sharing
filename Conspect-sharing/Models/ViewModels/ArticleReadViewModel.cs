@@ -20,5 +20,6 @@ namespace Conspect_sharing.Models.ViewModels
         public string UserName { get; set; }
         public List<string> Tags { get; set; }
         public bool IsAvailableRate { get; set; }
+        public int YourMark { get; set; }
     }
 }
