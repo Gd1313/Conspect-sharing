@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<Conspect_sharing.Models.ViewModels.ArticleListViewModel>
 
 <p>
-   Мои конспекты
+    @Localizer["MyArticles"]
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name) 
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Specialty)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedDate)
-                </th>
+            <th>
+                @Localizer["Name"]
+            </th>
+            <th>
+                @Localizer["Description"]
+            </th>
+            <th>
+                @Localizer["Specialty"]
+            </th>
+            <th>
+                @Localizer["CreatedDate"]
+            </th>
             <th></th>
         </tr>
     </thead>

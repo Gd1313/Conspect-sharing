@@ -117,31 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Электронная почта</value>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Дата стварэння</value>
   </data>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>Забыли пароль?</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Выдаліць</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Используйте локальную учетную запись для входа в систему.</value>
+  <data name="Description" xml:space="preserve">
+    <value>Анатацыя</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Вход</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Змяніць</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Пароль</value>
+  <data name="MyArticles" xml:space="preserve">
+    <value>Мае канспекты</value>
   </data>
-  <data name="RegisterAsANew" xml:space="preserve">
-    <value>Регистрация новго пользователя</value>
+  <data name="Name" xml:space="preserve">
+    <value>Назва</value>
   </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Запомнить меня</value>
+  <data name="Specialty" xml:space="preserve">
+    <value>Спецыяльнасць</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Вход</value>
-  </data>
-  <data name="UseAnother" xml:space="preserve">
-    <value>Вход через соц сети</value>
+  <data name="View" xml:space="preserve">
+    <value>Прагляд</value>
   </data>
 </root>

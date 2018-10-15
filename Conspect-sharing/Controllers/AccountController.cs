@@ -472,7 +472,7 @@ namespace Conspect_sharing.Controllers
 
             await _userManager.UpdateAsync(user);
 
-            return LocalRedirect(returnUrl);
+            return LocalRedirect(returnUrl+ "?userId="+user.Id);
         }
 
         [HttpPost]

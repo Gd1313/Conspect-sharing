@@ -117,31 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Электронная почта</value>
+  <data name="ChangeRole" xml:space="preserve">
+    <value>Змяніць ролю</value>
   </data>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>Забыли пароль?</value>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Выбраць карыстальніка</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Используйте локальную учетную запись для входа в систему.</value>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Выдаліць карыстальніка</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Вход</value>
+  <data name="LockUser" xml:space="preserve">
+    <value>Заблакаваць карыстальніка</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Пароль</value>
+  <data name="Role" xml:space="preserve">
+    <value>Ролю</value>
   </data>
-  <data name="RegisterAsANew" xml:space="preserve">
-    <value>Регистрация новго пользователя</value>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
   </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Запомнить меня</value>
+  <data name="UnlockUser" xml:space="preserve">
+    <value>Разблакаваць карыстальніка</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Вход</value>
-  </data>
-  <data name="UseAnother" xml:space="preserve">
-    <value>Вход через соц сети</value>
+  <data name="User" xml:space="preserve">
+    <value>Карыстальнік</value>
   </data>
 </root>

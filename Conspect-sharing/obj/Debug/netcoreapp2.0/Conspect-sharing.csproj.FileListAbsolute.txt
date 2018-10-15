@@ -39,3 +39,15 @@ C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Re
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.TopArticles.ru.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.LastArticles.be.resources
 C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.LastArticles.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.ChangePassword.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.ChangePassword.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.ArticleTable.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.ArticleTable.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.AdminTable.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Manage.AdminTable.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.ForgotPassword.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.ForgotPassword.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.Register.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.Register.ru.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._SelectTheme.be.resources
+C:\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Shared._SelectTheme.ru.resources

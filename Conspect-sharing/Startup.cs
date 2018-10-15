@@ -69,21 +69,6 @@ namespace Conspect_sharing
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            }).AddVK(options =>
-            {
-                options.ClientId = Configuration["Authentication:VK:AppId"];
-                options.ClientSecret = Configuration["Authentication:VK:AppSecret"];
-
-                options.Scope.Add("email");
-
-                options.Fields.Add("id");
-                options.Fields.Add("first_name");
-                options.Fields.Add("last_name");
-
-                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
-                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
 
             services.AddTransient<ArticleRepository>();

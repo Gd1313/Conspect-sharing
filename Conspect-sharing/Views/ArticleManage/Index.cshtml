@@ -4,16 +4,38 @@
 <head>
     <link href="~/css/bootstrap-tagsinput.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="~/css/profile.css"rel="stylesheet" />
 </head>
-<ul style="margin-top:30px;">
-    <li>
-        <label for="username">@Localizer["UserName"]</label>
-        <a href="#" id="username" data-type="text" data-pk="@Model.UserId" data-name="username" data-url="/ArticleManage/ChangeUserName" >
-            @Model.UserName
-        </a>
-    </li>
-    <li><a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="Article">@Localizer["Create"]</a></li>
-    <li><a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="ArticleTable">@Localizer["ArticleTable"]</a></li>
-</ul>
+
+<div class="content-profile-page">
+    <div class="profile-user-page card">
+        <div class="img-user-profile">
+
+        </div>
+        <button class="btn btn-success pull-right" ><a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="Article"> <i class="glyphicon glyphicon-plus"></i></a></button>
+        <div class="user-profile-data">
+            <h1> <label for="username">
+    <a href="#" id="username" data-type="text" data-title="" data-pk="@Model.UserId" data-name="username" data-url="/ArticleManage/ChangeUserName">
+        @Model.UserName
+    </a>
+</label></h1>
+        </div>
+
+        <ul class="data-user">
+            <li>
+               
+                <a asp-area="" asp-controller="ArticleManage" asp-route-userId="@UserManager.GetUserId(User)" asp-action="ArticleTable">@Localizer["ArticleTable"]</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+       
+      
+
+
+   
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="~/js/site.js"></script>
+

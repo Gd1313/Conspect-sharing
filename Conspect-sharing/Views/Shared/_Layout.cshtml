@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Conspect_sharing</title>
     <link href="~/css/datatables.min.css" rel="stylesheet" />
+    <link id="themeFile" rel="stylesheet" href="" />
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -41,7 +42,7 @@
 <body>
 
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#255D70; border-color:#255D70;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,16 +55,7 @@
 
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Localizer["Theme"] <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-theme="default" class="theme-link">Стандартная</a></li>
-                            <li><a href="#" data-theme="cosmo" class="theme-link">Математическая тема</a></li>
-                            <li><a href="#" data-theme="united" class="theme-link">Гуманитарная тема</a></li>
-                        </ul>
-                    </li>
-                </ul>
+               
 
                 @await Html.PartialAsync("_LoginPartial")
 
@@ -77,18 +69,21 @@
 
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - Conspect_sharing</p>
+        <div class="footer navbar-fixed-bottom">
+
             @if (SignInManager.IsSignedIn(User))
             {
-                <div class="form-control form-control-sm fixed-bottom" style="margin-top:10px; width:10%;">
+                <div class="form-control form-control-sm pull-right" style="margin-top:10px; width:10%;">
                     @await Html.PartialAsync("_SelectLanguagePartial")
                 </div>
+                @await Html.PartialAsync("_SelectTheme")
+         
             }
-            </footer>
-    </div>
+        </div>
+        </div>
 
 
     @RenderSection("Scripts", required: false)
 </body>
+<script src="~/js/theme_change.js"></script>
 </html>

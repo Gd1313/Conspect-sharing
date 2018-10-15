@@ -11,10 +11,10 @@
 </head>
 <body>
     <nav class="navbar navbar-light" style="background-color: #5b6073;" width="">
-        <button type="button" class="btn btn-warning" onclick="Locking()" title="Lock user">Lock user</button>
-        <button type="button" class="btn btn-danger" onclick="Delete()" title="Delete user">Delete user</button>
-        <button type="button" class="btn btn-success" onclick="Unlocking()" title="Unlock user">Unlock user</button>
-        <button type="button" class="btn btn-info" onclick="ChangeRole()" title="Change role">Change role</button>
+        <button type="button" class="btn btn-warning" onclick="Locking()" title="Lock user">@Localizer["LockUser"]</button>
+        <button type="button" class="btn btn-danger" onclick="Delete()" title="Delete user">@Localizer["DeleteUser"]</button>
+        <button type="button" class="btn btn-success" onclick="Unlocking()" title="Unlock user">@Localizer["UnlockUser"]</button>
+        <button type="button" class="btn btn-info" onclick="ChangeRole()" title="Change role">@Localizer["ChangeRole"]</button>
     </nav>
 
     <table id="myTable" class="display">
@@ -22,16 +22,16 @@
 
 
             <tr>
-                <th>Выбрать пользователя</th>
+                <th> @Localizer["ChooseUser"]</th>
 
                 <th>
-                    Пользователь
+                    @Localizer["User"]
                 </th>
                 <th>
-                    Роль
+                    @Localizer["Role"]
                 </th>
                 <th>
-                    Статус
+                    @Localizer["Status"]
                 </th>
 
             </tr>

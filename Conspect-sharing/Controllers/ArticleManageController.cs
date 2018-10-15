@@ -171,7 +171,7 @@ namespace Conspect_sharing.Controllers
             {
                 _articleRepository.Delete(new Guid(articleId));
             }
-            return RedirectPermanent("~/ArticleManage/ArticleTable");
+            return RedirectPermanent("~/ArticleManage/ArticleTable?userId=" + article.UserId);
         }
 
         public async Task<IActionResult> ArticleRead(Guid id)
