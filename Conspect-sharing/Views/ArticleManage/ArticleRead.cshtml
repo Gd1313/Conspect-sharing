@@ -85,9 +85,7 @@
                 {
                     <a class="tag label label-primary"
                        href='@Url.Action("SearchByHashtag","ArticleManage",new { hashtag=teg })'>@teg</a>
-                    @*<a class="tag label label-primary" asp-controller="ArticleManage" asp-route-hashtag="teg" asp-action="SearchByHashtag">
-                            @teg
-                        </a>*@
+                 
                 }
             </p>
         }
@@ -98,7 +96,7 @@
         <br />
         <button type="button" style="margin-top:12px;" class="btn btn-default btn-sm"
                 onclick="Export2Doc('exportContent','@Model.UserName');">
-            <span class="glyphicon glyphicon-download-alt"></span>
+            <span class="glyphicon glyphicon-download"></span>
         </button>
     </div>
 
@@ -175,13 +173,13 @@
                 type: 'application/msword'
             });
 
-            // Specify link url
+       
             var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
 
-            // Specify file name
+
             filename = filename ? filename + '.doc' : 'document.doc';
 
-            // Create download link element
+       
             var downloadLink = document.createElement("a");
 
             document.body.appendChild(downloadLink);
@@ -190,13 +188,13 @@
                 navigator.msSaveOrOpenBlob(blob, filename);
             }
             else {
-                // Create a link to the file
+           
                 downloadLink.href = url;
 
-                // Setting the file name
+         
                 downloadLink.download = filename;
 
-                //triggering the function
+ 
                 downloadLink.click();
             }
 
@@ -268,11 +266,10 @@
         function SetRate(id) {
             $(document).ready(function () {
 
-                /* 1. Visualizing things on Hover - See next part for action on click */
+         
                 $('#stars li').on('mouseover', function () {
-                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+                    var onStar = parseInt($(this).data('value'), 10); 
 
-                    // Now highlight all the stars that's not after the current hovered star
                     $(this).parent().children('li.star').each(function (e) {
                         if (e < onStar) {
                             $(this).addClass('hover');
@@ -289,9 +286,8 @@
                 });
 
 
-                /* 2. Action to perform on click */
                 $('#stars li').on('click', function () {
-                    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                    var onStar = parseInt($(this).data('value'), 10); 
                     var stars = $(this).parent().children('li.star');
 
                     for (i = 0; i < stars.length; i++) {

@@ -9,12 +9,6 @@ function createArticle(userId) {
     });
 }
 
-//$("#sibmit_button").click(function () {
-//    let data = getDataFromForm();
-//    sendRequest("/Manage/CreateArticle", data, function (href) {
-//        window.location.href = href;
-//    });
-//});
 var constraints = {
     description: {
         presence: true,
@@ -51,24 +45,6 @@ function getDataFrom() {
     return data;
 }
 
-//if (validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }) != undefined)
-//{
-//    //let dep_span = document.getElementById("des_span");
-//    //let spec_span = document.getElementById("spec_span");
-//    //let name_span = document.getElementById("name_span");
-//    let err = validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" });
-//    var spans = ["des_span","spec_span", "name_span"];
-//    //$("#dep_span").text(validate({ description: data.description }, constraints, { format: "flat" }));
-//    //$("#spec_span").text(validate({ specialty: data.specialty }, constraints, { format: "flat" }));
-//    //$("#name_span").text(validate({ name: data.name }, constraints, { format: "flat" }));
-//    for (var i = 0; i < length; i++) {
-//        $("#"+spans[i]).text(err[i]);
-//    }
-//} else {
-//    console.log(validate({ description: data.description, specialty: data.specialty, name: data.name }, constraints, { format: "flat" }))
-
-//    });
-//}
 
 
 function sendRequest(url, data, callback) {

@@ -120,6 +120,12 @@
   <data name="Last" xml:space="preserve">
     <value>Последние пять измененных конспекта</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Вперед</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Назад</value>
+  </data>
   <data name="Read" xml:space="preserve">
     <value>Читать дальше</value>
   </data>

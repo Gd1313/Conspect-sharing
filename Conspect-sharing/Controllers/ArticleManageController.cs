@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Conspect_sharing.Controllers
 {
+
     public class ArticleManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

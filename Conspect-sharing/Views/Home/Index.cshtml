@@ -26,10 +26,6 @@
 
     @foreach (var article in Model.Articles)
     {
-        @*@article.Name
-            @article.Description
-            @article.Specialty*@
-
         <div class="full-wrapper">
             <div class="inner-wrapper">
                 <div class="article-preview">
@@ -49,28 +45,28 @@
 </section>
 
 
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="Index"
-           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-           class="btn btn-default btn">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Назад
-        </a>
-    }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="Index"
-           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-           class="btn btn-default btn">
-            Вперед
-            <i class="glyphicon glyphicon-chevron-right"></i>
-        </a>
-    }
+@if (Model.PageViewModel.HasPreviousPage)
+{
+<a asp-action="Index"
+   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+   class="btn btn-default btn">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+    @Localizer["Prev"]
+</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        @Localizer["Next"]
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
 
-    @section Scripts {
-        <script src="~/js/jqcloud-1.0.4.js"></script>
-        <script type="text/javascript">
+@section Scripts {
+    <script src="~/js/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript">
         var tagList = @Json.Serialize(Model.Tags);
         var word_list = new Array();
         for (var i = 0; i < tagList.length; i++) {
@@ -83,5 +79,5 @@
         $(function () {
             $("#cloud").jQCloud(word_list, { shape: 'rectangular' });
         });
-        </script>
-    }
+    </script>
+}

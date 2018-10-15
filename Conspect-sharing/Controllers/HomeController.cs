@@ -51,7 +51,7 @@ namespace Conspect_sharing.Controllers
 
         public async Task<IActionResult> Index(int page=1)
         {
-            int pageSize = 10;
+            int pageSize =2;
             IQueryable<ArticleModel> source = _articleRepository.applicationDbContext.Articles;
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();

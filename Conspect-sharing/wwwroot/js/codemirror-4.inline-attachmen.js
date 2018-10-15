@@ -190,28 +190,15 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
             return true;
         },
 
-        ///**
-        // * Custom error handler. Runs after removing the placeholder text and before the alert().
-        // * Return false from this function to prevent the alert dialog.
-        // *
-        // * @return {Boolean} when false is returned it will prevent default error behavior
-        // */
+     
         onFileUploadError: function () {
             return true;
         },
 
-        /**
-         * When a file has succesfully been uploaded
-         */
+        
         onFileUploaded: function () { }
     };
 
-    ///**
-    // * Uploads the blob
-    // *
-    // * @param  {Blob} file blob data received from event.dataTransfer object
-    // * @return {XMLHttpRequest} request object which sends the file
-    // */
     inlineAttachment.prototype.uploadFile = function (file) {
         var me = this,
             formData = new FormData(),
@@ -275,11 +262,6 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
         return xhr;
     };
 
-    ///**
-    // * Returns if the given file is allowed to handle
-    // *
-    // * @param {File} clipboard data file
-    // */
     inlineAttachment.prototype.isFileAllowed = function (file) {
         if (file.kind === 'string') { return false; }
         if (this.settings.allowedTypes.indexOf('*') === 0) {
@@ -289,12 +271,7 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
         }
     };
 
-    ///**
-    // * Handles upload response
-    // *
-    // * @param  {XMLHttpRequest} xhr
-    // * @return {Void}
-    // */
+
     inlineAttachment.prototype.onFileUploadResponse = function (xhr) {
         if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
 
@@ -316,12 +293,7 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
     };
 
 
-    ///**
-    // * Called when a file has failed to upload
-    // *
-    // * @param  {XMLHttpRequest} xhr
-    // * @return {Void}
-    // */
+ 
     inlineAttachment.prototype.onFileUploadError = function (xhr) {
         if (this.settings.onFileUploadError.call(this, xhr) !== false) {
             var text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
@@ -329,12 +301,7 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
         }
     };
 
-    ///**
-    // * Called when a file has been inserted, either by drop or paste
-    // *
-    // * @param  {File} file
-    // * @return {Void}
-    // */
+
     inlineAttachment.prototype.onFileInserted = function (file) {
         if (this.settings.onFileReceived.call(this, file) !== false) {
             this.lastValue = this.settings.progressText;
@@ -343,11 +310,6 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
     };
 
 
-    ///**
-    // * Called when a paste event occured
-    // * @param  {Event} e
-    // * @return {Boolean} if the event was handled
-    // */
     inlineAttachment.prototype.onPaste = function (e) {
         var result = false,
             clipboardData = e.clipboardData,
@@ -371,11 +333,6 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
         return result;
     };
 
-    ///**
-    // * Called when a drop event occures
-    // * @param  {Event} e
-    // * @return {Boolean} if the event was handled
-    // */
     inlineAttachment.prototype.onDrop = function (e) {
         var result = false;
         for (var i = 0; i < e.dataTransfer.files.length; i++) {
@@ -395,14 +352,7 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
 })(document, window);
 
 
-/*jslint newcap: true */
-/*global inlineAttachment: false */
-/**
- * CodeMirror version for inlineAttachment
- *
- * Call inlineAttachment.attach(editor) to attach to a codemirror instance
- */
-//var inlineattach;
+
 (function() {
   'use strict';
 
@@ -429,11 +379,6 @@ var CLOUDINARY_UPLOAD_PRESET = 'zyrwkxyt';
     this.codeMirror.setCursor(cursor);
   };
 
-  ///**
-  // * Attach InlineAttachment to CodeMirror
-  // *
-  // * @param {CodeMirror} codeMirror
-  // */
   codeMirrorEditor.attach = function(codeMirror, options) {
 
     options = options || {};

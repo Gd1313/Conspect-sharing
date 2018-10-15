@@ -11,9 +11,9 @@
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
 @{
-    // получаем сервис IRequestCultureFeature
+  
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    // получаем список поддерживаемых культур
+
     var cultureItems = LocOptions.Value.SupportedUICultures
         .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
         .ToList();

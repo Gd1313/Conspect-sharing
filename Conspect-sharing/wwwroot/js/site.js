@@ -29,24 +29,23 @@ function supports_html5_storage() {
 var supports_storage = supports_html5_storage();
 
 function set_theme(theme) {
-    //$('link[title="main"]').attr('href', theme);
+
     if (supports_storage) {
         localStorage.theme = theme;
     }
-    //console.log(localStorage.theme);
+  
 }
 
-/* On load, set theme from local storage */
+
 if (supports_storage) {
     var themesheet = $('<link href="' + themes['default'] + '" rel="stylesheet" />');
     themesheet.appendTo('head');
-    //console.log(localStorage.theme);
+
     var theme = localStorage.theme;
     if (theme) {
         themesheet.attr('href', theme);
     } else {
-        /* Don't annoy user with options that don't persist */
-        //$('#theme-dropdown').hide();
+  
     }
 }
 
