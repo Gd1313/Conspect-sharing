@@ -37,33 +37,13 @@ namespace Conspect_sharing.Services.Repositories
             .ToList();
         }
 
-        //public List<ArticleModel> GetLastModifited(int count)
-        //{
-        //    return applicationDbContext.Articles
-        //    .OrderByDescending(a => a.ModifitedDate)
-        //    .Take(count)
-        //    .ToList();
-        //}
-
-        //public List<ArticleModel> GetWithMarks(int count)
-        //{
-        //    List<ArticleModel> articles = applicationDbContext.Articles
-        //    .Include(a => a.Marks)
-        //    .ToList();
-        //    return articles
-        //    .OrderByDescending(a => Average(a))
-        //    .Take(count)
-        //    .ToList();
-
-        //}
-        //double Average(ArticleModel a)
-        //{
-        //    if (a.Marks != null && a.Marks.Count() > 0)
-        //    {
-        //        return a.Marks.Average(m => m.Value);
-        //    }
-        //    return 0;
-        //}
+        public List<ArticleModel> GetLastModifited(int count)
+        {
+            return applicationDbContext.Articles
+            .OrderByDescending(a => a.LastModifeDate)
+            .Take(count)
+            .ToList();
+        }
 
         public void Create(ArticleModel t)
         {
@@ -88,5 +68,24 @@ namespace Conspect_sharing.Services.Repositories
         {
             return applicationDbContext.Articles.Where(a => a.UserId == id);
         }
+
+        public List<ArticleModel> GetWithTopRating()
+        {
+            List<ArticleModel> articles = applicationDbContext.Articles
+                .Include(a => a.Marks)
+                .ToList();
+            return articles
+                .OrderByDescending(a => Average(a))
+                .ToList();
+        }
+        double Average(ArticleModel article)
+        {
+            if (article.Marks != null && article.Marks.Count() > 0)
+            {
+                return article.Marks.Average(m => m.Value);
+            }
+            return 0;
+        }
+
     }
 }

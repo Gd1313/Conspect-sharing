@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<head>
+    <link href="~/css/articles_page.css" rel="stylesheet" />
+</head>
 
 @if (Model.Count() == 0)
 {
@@ -13,16 +16,22 @@
 }
 @foreach (var item in Model)
 {
+    <div class="full-wrapper">
+        <div class="inner-wrapper">
+            <div class="article-preview">
+                <div class="article-date"> <h2> <a href='~/ArticleManage/ArticleRead?id=@item.Id'> @item.Name </a></h2></div>
+                <div style="width:100%">
 
-    <div class="bs-callout bs-callout-danger">
-        <div class="article-name text-cut"> <h4> <a href='~/ArticleManage/ArticleRead?id=@item.Id'> @item.Name </a></h4></div>
-        <div style="width:100%">
-            <div style="display: inline-block; ">
-                <span class="text-muted text-sm"> <i class="fa  fa-lg"></i> - @item.LastModifeDate </span>
+                    <h3 class="article-h1"> @item.LastModifeDate </h3>
+
+                    <div style="display: inline-block; " id='@item.Id'></div>
+                </div>
+
+            <p class="article-p">  @item.Description</p>
+            <div class="article-breaker">
             </div>
-            <div style="display: inline-block; " id='@item.Id'></div>
+                </div>
         </div>
-        <div class="article-speciality text-cut">  @item.Specialty</div>
-        <div class="article-description text-cut">  @item.Description</div>
     </div>
+
 }

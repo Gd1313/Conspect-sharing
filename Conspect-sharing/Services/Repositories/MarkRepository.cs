@@ -3,6 +3,7 @@ using Conspect_sharing.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Conspect_sharing.Services.Repositories
@@ -48,5 +49,11 @@ namespace Conspect_sharing.Services.Repositories
             Context.Marks.Update(t);
             Context.SaveChanges();
         }
+
+        public IEnumerable<MarkModel> Find(Expression<Func<MarkModel, bool>> expression)
+        {
+            return Context.Marks.Where(expression);
+        }
+
     }
 }

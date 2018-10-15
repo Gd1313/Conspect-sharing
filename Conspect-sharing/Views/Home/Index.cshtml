@@ -1,45 +1,87 @@
 ﻿@model Conspect_sharing.Models.HomeViewModels.IndexViewModel
 
 <head>
-    <link href="~/css/main_page.css" rel="stylesheet" />
+    <link href="~/css/articles_page.css" rel="stylesheet" />
+    <link href="~/css/jqcloud.css" rel="stylesheet" />
 </head>
-
-@foreach (var article in Model.Articles)
-{
-    @*@article.Name
-    @article.Description
-    @article.Specialty*@
-
-<div class="full-wrapper">
-    <div class="inner-wrapper">
-        <div class="article-preview">
-            <h6 class="article-date">@article.CreatedDate</h6>
-            <h3 class="article-h1"><a href="">@article.Name</a></h3>
-            <p class="article-p">    @article.Description</p>
-
-            <p class="article-link"><a asp-area="" asp-controller="ArticleManage" asp-route-Id=@article.Id asp-action="ArticleRead">@Localizer["Read"]</a>
-            </p>
-            <div class="article-breaker"></div>
+<section class="intro">
+    <div class="pull-right">
+        <div id="cloud" class="cloud" style="left:200px;  width:300px; height:300px;">
         </div>
     </div>
-</div>
-}
+    <button class="btn btn-success">
+        <a asp-area="" asp-controller="Home" asp-action="TopArticles">
+            @Localizer["Top"]
 
-            @if (Model.PageViewModel.HasPreviousPage)
-            {
-                <a asp-action="Index"
-                   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-                   class="btn btn-default btn">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    Назад
-                </a>
-            }
-            @if (Model.PageViewModel.HasNextPage)
-            {
-                <a asp-action="Index"
-                   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-                   class="btn btn-default btn">
-                    Вперед
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </a>
-            }
+        </a>
+    </button>
+
+    <button class="btn btn-info">
+        <a asp-area="" asp-controller="Home" asp-action="LastArticles">
+            @Localizer["Last"]
+
+        </a>
+    </button>
+
+
+    @foreach (var article in Model.Articles)
+    {
+        @*@article.Name
+            @article.Description
+            @article.Specialty*@
+
+        <div class="full-wrapper">
+            <div class="inner-wrapper">
+                <div class="article-preview">
+                    <h6 class="article-date">@article.CreatedDate</h6>
+                    <h3 class="article-h1"><a href="">@article.Name</a></h3>
+                    <p class="article-p">    @article.Description</p>
+
+                    <p class="article-link">
+                        <a asp-area="" asp-controller="ArticleManage" asp-route-Id=@article.Id asp-action="ArticleRead">@Localizer["Read"]</a>
+                    </p>
+                    <div class="article-breaker"></div>
+                </div>
+            </div>
+        </div>
+
+    }
+</section>
+
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
+    @section Scripts {
+        <script src="~/js/jqcloud-1.0.4.js"></script>
+        <script type="text/javascript">
+        var tagList = @Json.Serialize(Model.Tags);
+        var word_list = new Array();
+        for (var i = 0; i < tagList.length; i++) {
+            word_list.push({
+                text: tagList[i].title,
+                weight: tagList[i].width,
+                link: '/ArticleManage/SearchByHashtag?hashtag=' + tagList[i].title
+            });
+        }
+        $(function () {
+            $("#cloud").jQCloud(word_list, { shape: 'rectangular' });
+        });
+        </script>
+    }

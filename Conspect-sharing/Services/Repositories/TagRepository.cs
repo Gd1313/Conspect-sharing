@@ -59,5 +59,12 @@ namespace Conspect_sharing.Services.Repositories
         Context.Tags.Update(t);
         Context.SaveChanges();
     }
-}
+
+        public List<TagModel> GetAllTags()
+        {
+            List<TagModel> tags = new List<TagModel>();
+            tags = Context.Tags.Include(t => t.ArticleTags).ToList();
+            return tags;
+        }
+    }
 }

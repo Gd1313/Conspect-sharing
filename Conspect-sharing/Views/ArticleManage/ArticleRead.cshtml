@@ -30,13 +30,12 @@
                 @Localizer["LastModifeDate"]
                 <span class="article-info">@Html.DisplayFor(model => model.LastModifeDate)</span>
             </div>
-            @if (SignInManager.IsSignedIn(User))
-            {
+
                 <div id="rate" style="margin-left:75%; margin-bottom:10px;">
                     @Localizer["Rate"]
                     <span class="article-info">@Html.DisplayFor(model => model.Rate)</span>
                 </div>
-            }
+   
             @if (SignInManager.IsSignedIn(User))
             {
                 <div id="rate" style="margin-left:75%; margin-bottom:10px;">

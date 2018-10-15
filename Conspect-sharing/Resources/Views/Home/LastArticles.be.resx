@@ -117,16 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Last" xml:space="preserve">
-    <value>Апошні пяць зменены канспекта</value>
-  </data>
-  <data name="Read" xml:space="preserve">
-    <value>Чытаць далей</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Галоўная старонка</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Канспекты з лепшым рэйтынгам</value>
+  <data name="LastModife" xml:space="preserve">
+    <value>Апошняя дата змены</value>
   </data>
 </root>
