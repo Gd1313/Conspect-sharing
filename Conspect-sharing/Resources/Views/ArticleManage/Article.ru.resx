@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
   <data name="CreateArticle" xml:space="preserve">
     <value>Создание конспекта</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Specialty" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Текст</value>
   </data>
 </root>

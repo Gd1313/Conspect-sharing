@@ -51,7 +51,7 @@ namespace Conspect_sharing.Controllers
 
         public async Task<IActionResult> Index(int page=1)
         {
-            int pageSize =2;
+            int pageSize =5;
             IQueryable<ArticleModel> source = _articleRepository.applicationDbContext.Articles;
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -101,20 +101,6 @@ namespace Conspect_sharing.Controllers
 
             return View(viewModel);
 
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
         }
 
         public IActionResult Error()

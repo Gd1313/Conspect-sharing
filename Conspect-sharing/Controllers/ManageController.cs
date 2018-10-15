@@ -58,7 +58,7 @@ namespace Conspect_sharing.Controllers
         [HttpGet]
         
         
-
+    
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -523,6 +523,7 @@ namespace Conspect_sharing.Controllers
             }
             return View(Users);
         }
+        [Authorize(Roles = "Admin")]
         private async Task<string> GetRole(ApplicationUser user)
         {
             if (await _userManager.IsInRoleAsync(user, "Admin"))
