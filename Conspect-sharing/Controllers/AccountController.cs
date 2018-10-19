@@ -241,11 +241,11 @@ namespace Conspect_sharing.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+               
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, SelectedLanguage =GetCulture()};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
                     await _userManager.AddToRoleAsync(user, "Admin");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);

@@ -55,7 +55,7 @@
 
             </div>
             <div class="navbar-collapse collapse">
-               
+
 
                 @await Html.PartialAsync("_LoginPartial")
 
@@ -77,13 +77,14 @@
                     @await Html.PartialAsync("_SelectLanguagePartial")
                 </div>
                 @await Html.PartialAsync("_SelectTheme")
-         
+
             }
         </div>
-        </div>
-
+    </div>
+    <script src="~/js/theme_change.js"></script>
 
     @RenderSection("Scripts", required: false)
+
 </body>
-<script src="~/js/theme_change.js"></script>
+
 </html>
