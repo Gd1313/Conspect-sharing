@@ -104,3 +104,5 @@ E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\be\C
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\ru\Conspect-sharing.resources.dll
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.dll
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.EditArticle.be.resources
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.EditArticle.ru.resources

@@ -130,13 +130,13 @@
     <value>Змяніць</value>
   </data>
   <data name="MyArticles" xml:space="preserve">
-    <value>Мае канспекты</value>
+    <value>Мае Навіны</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Назва</value>
   </data>
   <data name="Specialty" xml:space="preserve">
-    <value>Спецыяльнасць</value>
+    <value>Тэматыка</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>Прагляд</value>

@@ -117,28 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedDate" xml:space="preserve">
-    <value>Дата создания</value>
+  <data name="Create" xml:space="preserve">
+    <value>Рэдагаваць</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+  <data name="CreateArticle" xml:space="preserve">
+    <value>Рэдагаванне навіны</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Аннотация</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Изменить</value>
-  </data>
-  <data name="MyArticles" xml:space="preserve">
-    <value>Мои Новости</value>
+    <value>Апісанне</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Название</value>
+    <value>Назва</value>
   </data>
   <data name="Specialty" xml:space="preserve">
-    <value>Тематика</value>
+    <value>Тэматыка</value>
   </data>
-  <data name="View" xml:space="preserve">
-    <value>Просмотр</value>
+  <data name="Tags" xml:space="preserve">
+    <value>Тэгі</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Тэкст</value>
   </data>
 </root>

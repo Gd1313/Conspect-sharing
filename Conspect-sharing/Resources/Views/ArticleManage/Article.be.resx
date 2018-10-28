@@ -121,7 +121,7 @@
     <value>Стварыць</value>
   </data>
   <data name="CreateArticle" xml:space="preserve">
-    <value>Стварэнне канспекта</value>
+    <value>Стварэнне навіны</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Апісанне</value>
@@ -130,7 +130,7 @@
     <value>Назва</value>
   </data>
   <data name="Specialty" xml:space="preserve">
-    <value>Спецыяльнасць</value>
+    <value>Тэматыка</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Тэгі</value>
