@@ -37,13 +37,6 @@ namespace Conspect_sharing.Services.Repositories
             .ToList();
         }
 
-        public List<ArticleModel> GetLastModifited(int count)
-        {
-            return applicationDbContext.Articles
-            .OrderByDescending(a => a.LastModifeDate)
-            .Take(count)
-            .ToList();
-        }
 
         public void Create(ArticleModel t)
         {

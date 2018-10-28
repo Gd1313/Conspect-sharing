@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Conspect_sharing.Data;
-using Conspect_sharing.Models;
-using Conspect_sharing.Services;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
-using Conspect_sharing.Services.Repositories;
-using Conspect_sharing.Models.ViewModels;
-
-namespace Conspect_sharing
+﻿namespace Conspect_sharing
 {
+    using Conspect_sharing.Data;
+    using Conspect_sharing.Models;
+    using Conspect_sharing.Models.ViewModels;
+    using Conspect_sharing.Services;
+    using Conspect_sharing.Services.Repositories;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Localization;
+    using Microsoft.AspNetCore.Mvc.Razor;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Options;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+    
         public IConfiguration Configuration { get; }
 
-      
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,7 +84,6 @@ namespace Conspect_sharing
             services.AddTransient<Search>();
 
             services.AddSignalR();
-
         }
 
 

@@ -16,13 +16,6 @@
         </a>
     </button>
 
-    <button class="btn btn-info">
-        <a asp-area="" asp-controller="Home" asp-action="LastArticles">
-            @Localizer["Last"]
-
-        </a>
-    </button>
-
 
     @foreach (var article in Model.Articles)
     {

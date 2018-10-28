@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Conspect_sharing.Models;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Http;
-using Conspect_sharing.Models.ViewModels;
-using Microsoft.AspNetCore.Identity;
-using Conspect_sharing.Services.Repositories;
-using Conspect_sharing.Models.HomeViewModels;
-
-namespace Conspect_sharing.Controllers
+﻿namespace Conspect_sharing.Controllers
 {
+    using Conspect_sharing.Models;
+    using Conspect_sharing.Models.HomeViewModels;
+    using Conspect_sharing.Models.ViewModels;
+    using Conspect_sharing.Services.Repositories;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Localization;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class HomeController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ArticleRepository _articleRepository;
+
         private readonly TagRepository _tagRepository;
+
         private readonly MarkRepository _markRepository;
 
         public HomeController(UserManager<ApplicationUser> userManager, ArticleRepository articleRepository, TagRepository tagRepository,
@@ -35,23 +38,14 @@ namespace Conspect_sharing.Controllers
         {
             List<ArticleModel> topArticles = _articleRepository.GetWithTopRating();
             TopArticlesViewModel model = new TopArticlesViewModel();
-            model.TopRating= CreateArticleList(
+            model.TopRating = CreateArticleList(
                 topArticles);
             return View(model);
         }
 
-        public async Task<IActionResult> LastArticles()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            List<ArticleModel> lastmodifed = _articleRepository.GetLastModifited(5);
-            LatestViewModel model = new LatestViewModel();
-            model.LatestModified = CreateArticleList(
-                lastmodifed);
-            return View(model);
-        }
-
-        public async Task<IActionResult> Index(int page=1)
-        {
-            int pageSize =5;
+            int pageSize = 5;
             IQueryable<ArticleModel> source = _articleRepository.applicationDbContext.Articles;
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -61,7 +55,7 @@ namespace Conspect_sharing.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            if (user!=null)
+            if (user != null)
             {
                 viewModel = new IndexViewModel
                 {
@@ -69,7 +63,7 @@ namespace Conspect_sharing.Controllers
                     PageViewModel = pageViewModel,
                     Articles = items
                 };
-           
+
                 foreach (TagModel tag in _tagRepository.GetAllTags())
                 {
                     tags.Add(new TagViewModel() { Id = tag.Id, Title = tag.Title, Width = tag.ArticleTags.Count() });
@@ -79,7 +73,7 @@ namespace Conspect_sharing.Controllers
                 return View(viewModel);
             }
 
-         
+
 
             source = _articleRepository.applicationDbContext.Articles;
             count = source.Count();
@@ -88,7 +82,7 @@ namespace Conspect_sharing.Controllers
             pageViewModel = new PageViewModel(count, page, pageSize);
 
             viewModel = new IndexViewModel
-            {   
+            {
                 PageViewModel = pageViewModel,
                 Articles = items
             };
@@ -100,13 +94,13 @@ namespace Conspect_sharing.Controllers
             viewModel.Tags = tags;
 
             return View(viewModel);
-
         }
 
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         [NonAction]
         public string GetCulture()
         {
