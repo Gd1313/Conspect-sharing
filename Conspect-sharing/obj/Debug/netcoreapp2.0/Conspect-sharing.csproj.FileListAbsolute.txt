@@ -106,3 +106,7 @@ E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Cons
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.pdb
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.EditArticle.be.resources
 E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.ArticleManage.EditArticle.ru.resources
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.SearchResults.be.resources
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Account.SearchResults.ru.resources
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.SearchResults.be.resources
+E:\Project_origin\Conspect-sharing\Conspect-sharing\obj\Debug\netcoreapp2.0\Conspect-sharing.Resources.Views.Home.SearchResults.ru.resources

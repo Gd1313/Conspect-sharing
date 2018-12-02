@@ -5338,10 +5338,11 @@
       ]
     },
     "Markdown/2.2.1": {
-      "sha512": "A6veXuFP1n50RbmFNtTgfHxnHmwMsgFLSCgS1xWbg5L8n5N6HFEksTlXocZ0LsmGW4leBzeLJd+BY7+g83zFJA==",
+      "sha512": "Jpejl/eE7hMRs6TffefTVBJB933eFXa6gStXaukAkF/zg7h0+1srvYAgx0ua+w94YE7+HXCzOgOjD2XxP1OzMg==",
       "type": "package",
       "path": "markdown/2.2.1",
       "files": [
+        ".signature.p7s",
         "lib/net451/Markdown.dll",
         "lib/netstandard1.3/Markdown.dll",
         "markdown.2.2.1.nupkg.sha512",
@@ -12358,10 +12359,11 @@
       ]
     },
     "System.Security.Cryptography.Cng/4.4.0": {
-      "sha512": "3d/d+7sdNpfYfqJFzuE/o6Pl/reaMbH7rlUMNvtm4+XVYHY32tdFa45yjB3vhb6q0YY+IV8GUuiBPRsBFP3yaw==",
+      "sha512": "dHOg6ZQofflUFXYjVJyTY3OryoaS+os3wmz3Pp6MEF++WOYdPD5clM/orVHAi1bwuIW5mzqkl9YxFJafPUKjPw==",
       "type": "package",
       "path": "system.security.cryptography.cng/4.4.0",
       "files": [
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net46/System.Security.Cryptography.Cng.dll",
