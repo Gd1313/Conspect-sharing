@@ -123,6 +123,9 @@
   <data name="Home" xml:space="preserve">
     <value>Дадому</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Тэмы афармлення</value>
   </data>

@@ -117,16 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Hello" xml:space="preserve">
-    <value>Приведствую</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Домой</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="Theme" xml:space="preserve">
-    <value>Темы оформления</value>
+  <data name="ResultNotFound" xml:space="preserve">
+    <value>Нечего не найдено</value>
   </data>
 </root>
