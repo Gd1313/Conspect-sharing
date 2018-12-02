@@ -62,20 +62,43 @@ namespace Conspect_sharing.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            var result = Microsoft.AspNetCore.Identity.SignInResult.Failed;
+
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
-                { 
+                {
+                    if (user.LockoutEnabled == false)
+                    {
+                        return RedirectToAction(nameof(Lockout));
+                    }
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
                         ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
                         return View(model);
                     }
                 }
-                
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+             
+                try
+                {
+                    result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                }
+                catch (Exception)
+                {
+
+                    if (result == Microsoft.AspNetCore.Identity.SignInResult.Failed)
+                    {
+                        ModelState.AddModelError(string.Empty, "Ошибка авторизации. Возможно пользователь не сущетсвует , зарегестрируйтесь");
+                        return View(model);
+                    }
+                }
+            
+             
                 if (result.Succeeded)
+                
+
+               
                 {
                     _logger.LogInformation("User logged in.");
                     SetLanguageAfterLogin(user);
@@ -87,12 +110,13 @@ namespace Conspect_sharing.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("Ваш аккаунт заблокирован.");
                     return RedirectToAction(nameof(Lockout));
                 }
+                
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Ошибка авторизации. Возможно пользователь не сущетсвует , зарегестрируйтесь");
                     return View(model);
                 }
             }

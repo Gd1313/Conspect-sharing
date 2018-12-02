@@ -544,10 +544,10 @@ namespace Conspect_sharing.Controllers
             foreach (string id in arr)
             {
                 user = await _userManager.FindByNameAsync(id);
-                if (user.Email == User.Identity.Name)
-                {
-                    await _signInManager.SignOutAsync();
-                }
+                //if (user.UserName !=null)
+                //{
+                //    await _signInManager.SignOutAsync();
+                //}
                 await _userManager.DeleteAsync(user);
             }
             return true;
@@ -587,10 +587,10 @@ namespace Conspect_sharing.Controllers
             {
                 user = await _userManager.FindByNameAsync(id);
                 user.LockoutEnabled = false;
-                if (user.UserName == User.Identity.Name)
-                {
-                    await _signInManager.SignOutAsync();
-                }
+                //if (user.UserName !=null)
+                //{
+                //    await _signInManager.SignOutAsync();
+                //}
                 await _userManager.UpdateAsync(user);
             }
             return true;
