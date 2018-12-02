@@ -3,6 +3,7 @@
     using Conspect_sharing.Models;
     using Conspect_sharing.Models.HomeViewModels;
     using Conspect_sharing.Models.ViewModels;
+    using Conspect_sharing.Services;
     using Conspect_sharing.Services.Repositories;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -25,13 +26,16 @@
 
         private readonly MarkRepository _markRepository;
 
+        private SearchService _searchService;
+
         public HomeController(UserManager<ApplicationUser> userManager, ArticleRepository articleRepository, TagRepository tagRepository,
-            MarkRepository markRepository)
+            MarkRepository markRepository, SearchService searchService)
         {
             _userManager = userManager;
             _articleRepository = articleRepository;
             _tagRepository = tagRepository;
             _markRepository = markRepository;
+            _searchService = searchService;
         }
 
         public async Task<IActionResult> TopArticles()
@@ -95,7 +99,13 @@
 
             return View(viewModel);
         }
-
+        public IActionResult SearchByKeyword(string keyword)
+        {
+            _searchService.Create(new QueryModel() { Query = keyword });
+            IEnumerable<ArticleModel> searchResult = _searchService.GetIndexedArticles(keyword);
+            List<ArticleListViewModel> articlesList = CreateArticleList(searchResult.ToList());
+            return View("SearchResults", articlesList);
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

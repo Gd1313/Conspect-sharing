@@ -54,16 +54,26 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@Localizer["Home"]</a>
 
             </div>
-            <div class="navbar-collapse collapse">
+         
+                <div class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <form asp-action="SearchByKeyword" asp-controller="Home" method="get">
+                            <input type="text" class="form-control" name="keyword"
+                                   placeholder="@Localizer["Search"]" id="fieldSearch" autocomplete="off">
+                        </form>
+                    </div>
+                </div>
+          
+                <div class="navbar-collapse collapse">
 
 
-                @await Html.PartialAsync("_LoginPartial")
+                    @await Html.PartialAsync("_LoginPartial")
+
+                </div>
 
             </div>
 
-        </div>
-
-    </nav>
+</nav>
 
     <div class="container body-content">
 

@@ -82,6 +82,8 @@
             services.AddTransient<TagRepository>();
             services.AddTransient<SearchRepository>();
             services.AddTransient<Search>();
+            services.AddTransient<SearchService>();
+
 
             services.AddSignalR();
         }
